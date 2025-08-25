@@ -1,1738 +1,294 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2487.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
-    span.s2 {text-decoration: underline ; font-kerning: none; color: #0000e9; -webkit-text-stroke: 0px #0000e9}
-    td.td1 {width: 1431.5px; margin: 0.5px 0.5px 0.5px 0.5px; padding: 1.0px 1.0px 1.0px 1.0px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in</title>
+  <style>
+    /* 原始样式保留 */
+    :root, .light, .light-theme {
+      --branded-link-color: #5753C6;
+      --branded-link-text-decoration-color: #5753c666;
+      --branded-button-color: #FFFFFF;
+      --branded-button-background: #000000;
+      --branded-button-hover-background: #2e2e2e;
+      --branded-button-active-background: #414141;
+      --branded-button-box-shadow-color: transparent;
+      --branded-page-background: #FCFCFC;
+    }
+    
+    .dark, .dark-theme {
+      --branded-link-color: #B1A9FF;
+      --branded-link-text-decoration-color: #b1a9ff66;
+      --branded-button-color: #000000;
+      --branded-button-background: #FFFFFF;
+      --branded-button-hover-background: #f6f6f6;
+      --branded-button-active-background: #ededed;
+      --branded-button-box-shadow-color: transparent;
+      --branded-page-background: #000000;
+    }
+    
+    .radix-themes {
+      --cursor-button: pointer;
+      --cursor-disabled: default;
+      --cursor-link: pointer;
+      --cursor-menu-item: pointer;
+      --cursor-slider-thumb: pointer;
+      --cursor-slider-thumb-active: pointer;
+      --cursor-switch: pointer;
+      --custom-font-family: "";
+      --system-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI (Custom)', Roboto, 'Helvetica Neue', 'Open Sans (Custom)', system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+      --default-font-family: var(--custom-font-family, Inter), var(--system-font-family);
+      --heading-font-family: var(--custom-font-family, InterDisplay), var(--system-font-family);
+      --font-weight-bold: 600;
+      --code-padding-top: 0em;
+      --code-padding-bottom: 0.075em;
+      --code-font-family: 'IBM Plex Mono', 'Menlo', monospace, 'Apple Color Emoji', 'Segoe UI Emoji';
+      --marker-font-size-adjust: 0.97222;
+      --marker-font-weight: 500;
+      font-feature-settings: 'liga' 1, 'calt' 1;
+    }
+    
+    @supports (font-variation-settings: normal) {
+      .radix-themes {
+        --default-font-family: var(--custom-font-family, var(--inter-variable-font, InterVariable)), var(--system-font-family);
+        --heading-font-family: var(--custom-font-family, var(--inter-variable-font, InterVariable)), var(--system-font-family);
+      }
+    }
+    
+    body {
+      margin: 0;
+      background-color: var(--branded-page-background);
+      font-family: var(--default-font-family);
+    }
+    
+    /* 原始组件样式 */
+    .rt-Grid {
+      display: grid;
+      grid-template-columns: minmax(0, 440px);
+      grid-template-rows: repeat(3, min-content);
+      min-width: 320px;
+      min-height: 100dvh;
+      align-content: space-between;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    
+    .ak-Background {
+      background-color: var(--branded-page-background);
+    }
+    
+    .ak-Content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      padding-top: 1rem;
+      padding-bottom: 2.25rem;
+    }
+    
+    .ak-Header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .ak-LogoIcon {
+      height: 48px;
+      width: auto;
+    }
+    
+    .rt-Heading {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    .ak-Card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+    
+    .ak-AuthForm {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    
+    .ak-Label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .ak-TextField {
+      width: 100%;
+    }
+    
+    .rt-TextFieldInput {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    
+    .ak-PrimaryButton {
+      background: var(--branded-button-background);
+      color: var(--branded-button-color);
+      border: none;
+      border-radius: 8px;
+      padding: 0.8rem 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .ak-PrimaryButton:hover {
+      background: var(--branded-button-hover-background);
+    }
+    
+    .ak-PrimaryButton:active {
+      background: var(--branded-button-active-background);
+    }
+    
+    .ak-TextSeparator {
+      text-align: center;
+      position: relative;
+      margin: 1.5rem 0;
+    }
+    
+    .ak-TextSeparator::before,
+    .ak-TextSeparator::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 42%;
+      height: 1px;
+      background: rgba(0,0,0,0.1);
+    }
+    
+    .ak-TextSeparator::before {
+      left: 0;
+    }
+    
+    .ak-TextSeparator::after {
+      right: 0;
+    }
+    
+    .ak-AuthMethodsProviders {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .ak-AuthButton {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.8rem 1.5rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      background: transparent;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .ak-AuthButton:hover {
+      background: rgba(0,0,0,0.03);
+    }
+    
+    .ak-AuthButtonIcon {
+      height: 20px;
+      width: 20px;
+    }
+    
+    .ak-Footer {
+      font-size: 0.875rem;
+      text-align: center;
+      color: #666;
+      margin-top: auto;
+      padding-top: 1rem;
+    }
+    
+    .BrandedLink {
+      color: var(--branded-link-color);
+      text-decoration-color: var(--branded-link-text-decoration-color);
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
-<table cellspacing="0" cellpadding="0">
-  <tbody>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;&lt;html class="__variable_6d6793" lang="en"&gt;&lt;head&gt;&lt;meta charSet="utf-8"/&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1"/&gt;&lt;link rel="preload" as="image" href="<a href="https://workos.imgix.net/app-branding/environment_01GS6W3C901N50J4ZGFB6V1Z6C/01HZ3C68S32DEFKTDAYKX864DE"><span class="s2">https://workos.imgix.net/app-branding/environment_01GS6W3C901N50J4ZGFB6V1Z6C/01HZ3C68S32DEFKTDAYKX864DE</span></a>"/&gt;&lt;link rel="preload" as="image" href="<a href="https://workos.imgix.net/app-branding/environment_01GS6W3C901N50J4ZGFB6V1Z6C/01HZ3C68S3T4CVGPHJPA5JQ19B"><span class="s2">https://workos.imgix.net/app-branding/environment_01GS6W3C901N50J4ZGFB6V1Z6C/01HZ3C68S3T4CVGPHJPA5JQ19B</span></a>"/&gt;&lt;link rel="stylesheet" href="<a href="https://authenticator.cursor.sh/_next/static/css/0c172493616c03c2.css"><span class="s2">/_next/static/css/0c172493616c03c2.css</span></a>" data-precedence="next"/&gt;&lt;link rel="stylesheet" href="<a href="https://authenticator.cursor.sh/_next/static/css/947c5050edc3a9dc.css"><span class="s2">/_next/static/css/947c5050edc3a9dc.css</span></a>" data-precedence="next"/&gt;&lt;link rel="preload" as="script" fetchPriority="low" href="<a href="https://authenticator.cursor.sh/_next/static/chunks/webpack-3c546a841db1f179.js"><span class="s2">/_next/static/chunks/webpack-3c546a841db1f179.js</span></a>"/&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/eb25ea19-85a0b21ba6805dc2.js"><span class="s2">/_next/static/chunks/eb25ea19-85a0b21ba6805dc2.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/2492-02fc9bc6d3e003b1.js"><span class="s2">/_next/static/chunks/2492-02fc9bc6d3e003b1.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/main-app-f09023679d663da3.js"><span class="s2">/_next/static/chunks/main-app-f09023679d663da3.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/8602-4dba9927f9e0c8e5.js"><span class="s2">/_next/static/chunks/8602-4dba9927f9e0c8e5.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/8238-2f5f20e5be33cea3.js"><span class="s2">/_next/static/chunks/8238-2f5f20e5be33cea3.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/351-99ea5389203e458c.js"><span class="s2">/_next/static/chunks/351-99ea5389203e458c.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/app/global-error-d7248095e822a40f.js"><span class="s2">/_next/static/chunks/app/global-error-d7248095e822a40f.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/a9fa95c6-ac5231f5b1cee899.js"><span class="s2">/_next/static/chunks/a9fa95c6-ac5231f5b1cee899.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/7854-64ca57abf8681b7a.js"><span class="s2">/_next/static/chunks/7854-64ca57abf8681b7a.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/app/error-b5b870e133e2ff33.js"><span class="s2">/_next/static/chunks/app/error-b5b870e133e2ff33.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/8315-d29e8f818eb5c6b8.js"><span class="s2">/_next/static/chunks/8315-d29e8f818eb5c6b8.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/2907-fe5773783304cb12.js"><span class="s2">/_next/static/chunks/2907-fe5773783304cb12.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/2207-2b4443f28b48d3cb.js"><span class="s2">/_next/static/chunks/2207-2b4443f28b48d3cb.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/7992-5a1fd700e61cf26e.js"><span class="s2">/_next/static/chunks/7992-5a1fd700e61cf26e.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/7884-07ccc82c5300cf15.js"><span class="s2">/_next/static/chunks/7884-07ccc82c5300cf15.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/5802-42fe060ba3e68a39.js"><span class="s2">/_next/static/chunks/5802-42fe060ba3e68a39.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/8577-30e2f0b02c897bb3.js"><span class="s2">/_next/static/chunks/8577-30e2f0b02c897bb3.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/3709-744c095a2a29b966.js"><span class="s2">/_next/static/chunks/3709-744c095a2a29b966.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/app/(root)/(sign-in)/page-a7204ec30c1d38f3.js"><span class="s2">/_next/static/chunks/app/(root)/(sign-in)/page-a7204ec30c1d38f3.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/907791fa-f398c33ea32e542c.js"><span class="s2">/_next/static/chunks/907791fa-f398c33ea32e542c.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/5656-c6ae35b0b5745e70.js"><span class="s2">/_next/static/chunks/5656-c6ae35b0b5745e70.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/app/(root)/layout-df50673362a6d83c.js"><span class="s2">/_next/static/chunks/app/(root)/layout-df50673362a6d83c.js</span></a>" async=""&gt;&lt;/script&gt;&lt;title&gt;Sign in&lt;/title&gt;&lt;meta name="next-size-adjust"/&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/polyfills-42372ed130431b0a.js"><span class="s2">/_next/static/chunks/polyfills-42372ed130431b0a.js</span></a>" noModule=""&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;style&gt;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">@layer branding {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.radix-themes {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--cursor-button: pointer;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--cursor-disabled: default;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--cursor-link: pointer;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--cursor-menu-item: pointer;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--cursor-slider-thumb: pointer;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--cursor-slider-thumb-active: pointer;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--cursor-switch: pointer;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--custom-font-family: "";</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--system-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI (Custom)', Roboto, 'Helvetica Neue', 'Open Sans (Custom)', system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--default-font-family: var(--custom-font-family, Inter), var(--system-font-family);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--heading-font-family: var(--custom-font-family, InterDisplay), var(--system-font-family);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--font-weight-bold: 600;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--code-padding-top: 0em;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--code-padding-bottom: 0.075em;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--code-font-family: 'IBM Plex Mono', 'Menlo', monospace, 'Apple Color Emoji',</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">'Segoe UI Emoji';</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--marker-font-size-adjust: 0.97222;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--marker-font-weight: 500;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">font-feature-settings: 'liga' 1, 'calt' 1;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">@supports (font-variation-settings: normal) {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.radix-themes {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--default-font-family: var(--custom-font-family, var(--inter-variable-font, InterVariable)), var(--system-font-family);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--heading-font-family: var(--custom-font-family, var(--inter-variable-font, InterVariable)), var(--system-font-family);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">:root, .light, .light-theme {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-link-color: #5753C6;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-link-text-decoration-color: #5753c666;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-button-color: #FFFFFF;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-button-background: #000000;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-button-hover-background: #2e2e2e;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-button-active-background: #414141;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-button-box-shadow-color: transparent;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-page-background: #FCFCFC;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.dark, .dark-theme {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-link-color: #B1A9FF;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-link-text-decoration-color: #b1a9ff66;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-button-color: #000000;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-button-background: #FFFFFF;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-button-hover-background: #f6f6f6;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-button-active-background: #ededed;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-button-box-shadow-color: transparent;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--branded-page-background: #000000;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme) {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-1: #fcfcfc;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-2: #f9f9f9;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-3: #f0f0f0;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-4: #e8e8e8;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-5: #e0e0e0;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-6: #d9d9d9;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-7: #cecece;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-8: #bbb;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-9: #000;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-10: #2e2e2e;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-11: #646464;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-12: #202020;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a1: #00000003;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a2: #00000006;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a3: #0000000f;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a4: #00000017;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a5: #0000001f;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a6: #00000026;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a7: #00000031;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a8: #00000044;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a9: #000000;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a10: #000000d1;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a11: #0000009b;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a12: #000000df;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-1: #fcfcfc;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-2: #f9f9f9;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-3: #f0f0f0;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-4: #e8e8e8;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-5: #e0e0e0;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-6: #d9d9d9;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-7: #cecece;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-8: #bbb;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-9: #8d8d8d;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-10: #838383;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-11: #646464;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-12: #202020;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a1: #00000003;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a2: #00000006;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a3: #0000000f;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a4: #00000017;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a5: #0000001f;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a6: #00000026;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a7: #00000031;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a8: #00000044;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a9: #00000072;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a10: #0000007c;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a11: #0000009b;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a12: #000000df;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-track: var(--accent-9);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-indicator: var(--accent-9);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-contrast: #fff;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-surface: #ffffffcc;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme), :where(.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme)) [data-accent-color] {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-1: #fdfdff;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-2: #f7f8ff;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-3: #eff1fe;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-4: #e4e8ff;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-5: #d8ddff;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-6: #c8ceff;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-7: #b5bbf9;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-8: #999ff0;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-9: #5e5ad5;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-10: #564fcc;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-11: #5753c6;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-12: #292862;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a1: #0000ff02;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a2: #0020ff08;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a3: #0020f010;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a4: #0026ff1b;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a5: #0021ff27;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a6: #001cff37;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a7: #0115eb4a;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a8: #000fda66;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a9: #0600bea5;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a10: #0a00b5b0;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a11: #0600abac;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a12: #010045d7;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">@supports (color: color(display-p3 1 1 1)) {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">@media (color-gamut: p3) {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.radix-themes:not(.dark, .dark-theme),</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.radix-themes:is(.light, .light-theme) {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a1: color(display-p3 0 0 0 / 0.0118);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a2: color(display-p3 0 0 0 / 0.0235);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a3: color(display-p3 0 0 0 / 0.0588);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a4: color(display-p3 0 0 0 / 0.0902);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a5: color(display-p3 0 0 0 / 0.1216);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a6: color(display-p3 0 0 0 / 0.149);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a7: color(display-p3 0 0 0 / 0.1922);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a8: color(display-p3 0 0 0 / 0.2667);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a9: color(display-p3 0 0 0);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a10: color(display-p3 0 0 0 / 0.8196);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a11: color(display-p3 0 0 0 / 0.6078);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a12: color(display-p3 0 0 0 / 0.8745);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a1: color(display-p3 0 0 0 / 0.0118);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a2: color(display-p3 0 0 0 / 0.0235);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a3: color(display-p3 0 0 0 / 0.0588);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a4: color(display-p3 0 0 0 / 0.0902);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a5: color(display-p3 0 0 0 / 0.1216);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a6: color(display-p3 0 0 0 / 0.149);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a7: color(display-p3 0 0 0 / 0.1922);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a8: color(display-p3 0 0 0 / 0.2667);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a9: color(display-p3 0 0 0 / 0.4471);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a10: color(display-p3 0 0 0 / 0.4863);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a11: color(display-p3 0 0 0 / 0.6078);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a12: color(display-p3 0 0 0 / 0.8745);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme), :where(.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme)) [data-accent-color] {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a1: color(display-p3 0.0196 0.0196 1 / 0.008);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a2: color(display-p3 0.0196 0.1451 0.8784 / 0.032);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a3: color(display-p3 0.0078 0.1294 0.8784 / 0.063);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a4: color(display-p3 0.0039 0.1176 0.9255 / 0.102);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a5: color(display-p3 0.0078 0.1137 0.9216 / 0.15);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a6: color(display-p3 0.0039 0.0941 0.9294 / 0.212);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a7: color(display-p3 0.0039 0.0745 0.851 / 0.287);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a8: color(display-p3 0.0039 0.051 0.7922 / 0.397);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a9: color(display-p3 0.0196 0 0.702 / 0.648);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a10: color(display-p3 0.0353 0 0.6706 / 0.691);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a11: color(display-p3 0.0196 0 0.6275 / 0.675);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a12: color(display-p3 0.0039 0 0.251 / 0.844);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">:is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme) {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-1: #111;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-2: #191919;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-3: #232323;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-4: #2a2a2a;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-5: #313131;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-6: #3a3a3a;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-7: #484848;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-8: #616161;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-9: #fff;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-10: #f6f6f6;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-11: #b4b4b4;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-12: #eee;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a1: #ffffff11;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a2: #ffffff19;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a3: #ffffff23;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a4: #ffffff2a;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a5: #ffffff31;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a6: #ffffff3a;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a7: #ffffff48;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a8: #ffffff61;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a9: #ffffff;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a10: #fffffff6;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a11: #ffffffb4;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a12: #ffffffee;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-1: #000;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-2: #191919;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-3: #191919;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-4: #191919;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-5: #1e1e1e;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-6: #242424;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-7: #2e2e2e;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-8: #3f3f3f;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-9: #494949;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-10: #5d5d5d;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-11: #9e9e9e;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-12: #eee;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a1: #00000000;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a2: #ffffff19;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a3: #ffffff19;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a4: #ffffff19;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a5: #ffffff1e;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a6: #ffffff24;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a7: #ffffff2e;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a8: #ffffff3f;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a9: #ffffff49;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a10: #ffffff5d;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a11: #ffffff9e;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a12: #ffffffee;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-track: var(--accent-9);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-indicator: var(--accent-9);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-contrast: #000;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-surface: rgba(0, 0, 0, 0.05);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme), :where(.radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme)) [data-accent-color] {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-1: #14131e;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-2: #171625;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-3: #262047;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-4: #312662;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-5: #3b2f71;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-6: #463b80;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-7: #524793;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-8: #6255ae;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-9: #6d55d2;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-10: #7966db;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-11: #b1a9ff;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-12: #e0dffe;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a1: #aaa2ff1e;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a2: #9f98ff25;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a3: #8973ff47;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a4: #8063ff62;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a5: #866bff71;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a6: #8c76ff80;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a7: #8f7cff93;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a8: #907dffae;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a9: #8467ffd2;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a10: #8d77ffdb;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a11: #b1a9ff;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a12: #e1e0fffe;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">@supports (color: color(display-p3 1 1 1)) {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">@media (color-gamut: p3) {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">:is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme) {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a1: color(display-p3 1 1 1 / 0.0667);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a2: color(display-p3 1 1 1 / 0.098);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a3: color(display-p3 1 1 1 / 0.1373);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a4: color(display-p3 1 1 1 / 0.1647);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a5: color(display-p3 1 1 1 / 0.1922);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a6: color(display-p3 1 1 1 / 0.2275);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a7: color(display-p3 1 1 1 / 0.2824);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a8: color(display-p3 1 1 1 / 0.3804);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a9: color(display-p3 1 1 1);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a10: color(display-p3 1 1 1 / 0.9647);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a11: color(display-p3 1 1 1 / 0.7059);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--accent-a12: color(display-p3 1 1 1 / 0.9333);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a1: color(display-p3 0 0 0 / 0);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a2: color(display-p3 1 1 1 / 0.098);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a3: color(display-p3 1 1 1 / 0.098);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a4: color(display-p3 1 1 1 / 0.098);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a5: color(display-p3 1 1 1 / 0.1176);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a6: color(display-p3 1 1 1 / 0.1412);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a7: color(display-p3 1 1 1 / 0.1804);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a8: color(display-p3 1 1 1 / 0.2471);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a9: color(display-p3 1 1 1 / 0.2863);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a10: color(display-p3 1 1 1 / 0.3647);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a11: color(display-p3 1 1 1 / 0.6196);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--gray-a12: color(display-p3 1 1 1 / 0.9333);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme), :where(.radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme)) [data-accent-color] {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a1: color(display-p3 0.6902 0.6549 1 / 0.114);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a2: color(display-p3 0.6353 0.6078 0.9961 / 0.142);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a3: color(display-p3 0.5373 0.4667 1 / 0.271);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a4: color(display-p3 0.502 0.4039 1 / 0.369);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a5: color(display-p3 0.5255 0.4314 1 / 0.428);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a6: color(display-p3 0.549 0.4784 1 / 0.487);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a7: color(display-p3 0.5647 0.502 1 / 0.557);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a8: color(display-p3 0.5725 0.5059 1 / 0.659);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a9: color(display-p3 0.5176 0.4235 1 / 0.797);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a10: color(display-p3 0.5569 0.4863 1 / 0.832);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a11: color(display-p3 0.7059 0.6784 1 / 0.977);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--focus-a12: color(display-p3 0.8902 0.8863 1 / 0.985);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.radix-themes {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">--color-background: var(--branded-page-background);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">:root body {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">margin: 0;</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">background-color: var(--branded-page-background);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">&lt;/style&gt;&lt;style&gt;@layer custom-elements {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">.ak-Background {</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">background-color: var(--branded-page-background);</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}</span></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p2"><span class="s1"></span><br></p>
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle" class="td1">
-        <p class="p1"><span class="s1">}&lt;/style&gt;&lt;script nonce="KA4SQMmL70295xRhQx6dpg=="&gt;!function(){var d=document.documentElement,c=d.classList;c.remove('light-theme','dark-theme');d.style.colorScheme = 'dark';c.add('dark-theme')}()&lt;/script&gt;&lt;div data-is-root-theme="true" data-accent-color="indigo" data-gray-color="slate" data-has-background="true" data-panel-background="translucent" data-radius="small" data-scaling="100%" class="radix-themes"&gt;&lt;div style="--grid-template-columns:minmax(0, 440px);--grid-template-rows:repeat(3, min-content);--min-width:320px;--min-height:100dvh;align-content:space-between" class="rt-Grid rt-r-gtc rt-r-gtr rt-r-ai-center rt-r-jc-center rt-r-p-4 rt-r-min-w rt-r-min-h ak-Background"&gt;&lt;div data-hak-page="sign-in" style="grid-row-start:2" class="rt-Flex rt-r-fd-column rt-r-gap-5 rt-r-pt-4 rt-r-pb-9 ak-Content"&gt;&lt;div class="rt-Flex rt-r-fd-column rt-r-ai-center rt-r-jc-center rt-r-gap-4 ak-Header"&gt;&lt;img alt="Logo" src="<a href="https://workos.imgix.net/app-branding/environment_01GS6W3C901N50J4ZGFB6V1Z6C/01HZ3C68S32DEFKTDAYKX864DE"><span class="s2">https://workos.imgix.net/app-branding/environment_01GS6W3C901N50J4ZGFB6V1Z6C/01HZ3C68S32DEFKTDAYKX864DE</span></a>" class="ak-Logo ak-Logo-light ak-LogoIcon"/&gt;&lt;img alt="Logo" src="<a href="https://workos.imgix.net/app-branding/environment_01GS6W3C901N50J4ZGFB6V1Z6C/01HZ3C68S3T4CVGPHJPA5JQ19B"><span class="s2">https://workos.imgix.net/app-branding/environment_01GS6W3C901N50J4ZGFB6V1Z6C/01HZ3C68S3T4CVGPHJPA5JQ19B</span></a>" class="ak-Logo ak-Logo-dark ak-LogoIcon"/&gt;&lt;h1 class="rt-Heading rt-r-size-6 rt-r-ta-center rt-r-tw-balance ak-Heading"&gt;Sign in&lt;/h1&gt;&lt;/div&gt;&lt;div class="rt-reset rt-BaseCard rt-Card rt-r-size-4 xs:rt-r-size-5 rt-variant-surface ak-Card"&gt;&lt;form action="javascript:throw new Error(&amp;#x27;React form unexpectedly submitted.&amp;#x27;)"&gt;&lt;div class="rt-Flex rt-r-fd-column rt-r-gap-5"&gt;&lt;div class="rt-Flex rt-r-fd-column rt-r-gap-5 ak-AuthForm"&gt;&lt;div class="rt-Flex rt-r-fd-column rt-r-gap-2"&gt;&lt;div class="rt-Flex"&gt;&lt;label for="radix-:R2kbj7puljsq:" class="rt-Text rt-r-size-2 rt-r-weight-bold rt-r-lt-start ak-Label"&gt;Email&lt;/label&gt;&lt;/div&gt;&lt;div class="rt-TextFieldRoot rt-r-size-3 rt-variant-surface ak-TextField"&gt;&lt;input spellCheck="false" autoCapitalize="off" autoComplete="email" placeholder="Your email address" type="email" required="" autofocus="" title="" id="radix-:R2kbj7puljsq:" class="rt-reset rt-TextFieldInput" name="email"/&gt;&lt;/div&gt;&lt;/div&gt;&lt;button type="submit" class="rt-reset rt-BaseButton rt-Button BrandedButton ak-PrimaryButton rt-r-size-3"&gt;Continue&lt;/button&gt;&lt;/div&gt;&lt;div data-accent-color="gray" class="rt-Text rt-r-size-1 ak-TextSeparator"&gt;OR&lt;/div&gt;&lt;div class="rt-Flex rt-r-fd-column rt-r-gap-3 ak-AuthMethodsProviders"&gt;&lt;a href="<a href="https://authenticator.cursor.sh/api/login?provider=GoogleOAuth&amp;state=%257B%2522returnTo%2522%253A%2522%252Fdashboard%2522%252C%2522nonce%2522%253A%25227aff1275-5ab8-4171-9de4-6bce45a3139c%2522%257D&amp;redirect_uri=https%3A%2F%2Fcursor.com%2Fapi%2Fauth%2Fcallback&amp;client_id=client_01GS6W3C96KW4WRS6Z93JCE2RJ&amp;source=signin&amp;authorization_session_id=01K3FJ752SENQG21ZKMX54DVFE"><span class="s2">api/login?provider=GoogleOAuth&amp;amp;state=%257B%2522returnTo%2522%253A%2522%252Fdashboard%2522%252C%2522nonce%2522%253A%25227aff1275-5ab8-4171-9de4-6bce45a3139c%2522%257D&amp;amp;redirect_uri=https%3A%2F%2Fcursor.com%2Fapi%2Fauth%2Fcallback&amp;amp;client_id=client_01GS6W3C96KW4WRS6Z93JCE2RJ&amp;amp;source=signin&amp;amp;authorization_session_id=01K3FJ752SENQG21ZKMX54DVFE</span></a>" data-accent-color="gray" data-method="google" class="rt-reset rt-BaseButton rt-r-size-3 rt-variant-surface rt-high-contrast rt-Button ak-AuthButton"&gt;&lt;svg fill="none" height="15" viewBox="0 0 16 16" width="15" xmlns="http://www.w3.org/2000/svg" class="ak-AuthButtonIcon"&gt;&lt;g&gt;&lt;path d="M15.83 8.18C15.83 7.65333 15.7833 7.15333 15.7033 6.66667H8.17V9.67333H12.4833C12.29 10.66 11.7233 11.4933 10.8833 12.06V14.06H13.4567C14.9633 12.6667 15.83 10.6133 15.83 8.18Z" fill="#4285F4"&gt;&lt;/path&gt;&lt;path d="M8.17 16C10.33 16 12.1367 15.28 13.4567 14.06L10.8833 12.06C10.1633 12.54 9.25 12.8333 8.17 12.8333C6.08334 12.8333 4.31667 11.4267 3.68334 9.52667H1.03V11.5867C2.34334 14.2 5.04334 16 8.17 16Z" fill="#34A853"&gt;&lt;/path&gt;&lt;path d="M3.68334 9.52667C3.51667 9.04667 3.43 8.53333 3.43 8C3.43 7.46667 3.52334 6.95334 3.68334 6.47334V4.41334H1.03C0.483335 5.49334 0.170002 6.70667 0.170002 8C0.170002 9.29333 0.483335 10.5067 1.03 11.5867L3.68334 9.52667Z" fill="#FBBC05"&gt;&lt;/path&gt;&lt;path d="M8.17 3.16667C9.35 3.16667 10.4033 3.57334 11.2367 4.36667L13.5167 2.08667C12.1367 0.793334 10.33 0 8.17 0C5.04334 0 2.34334 1.8 1.03 4.41334L3.68334 6.47334C4.31667 4.57334 6.08334 3.16667 8.17 3.16667Z" fill="#EA4335"&gt;&lt;/path&gt;&lt;/g&gt;&lt;/svg&gt;&lt;span data-has-icon="true" class="rt-Text rt-r-size-2 xs:rt-r-size-3 ak-AuthButtonLabel"&gt;Continue with &lt;!-- --&gt;Google&lt;/span&gt;&lt;/a&gt;&lt;a href="<a href="https://authenticator.cursor.sh/api/login?provider=GitHubOAuth&amp;state=%257B%2522returnTo%2522%253A%2522%252Fdashboard%2522%252C%2522nonce%2522%253A%25227aff1275-5ab8-4171-9de4-6bce45a3139c%2522%257D&amp;redirect_uri=https%3A%2F%2Fcursor.com%2Fapi%2Fauth%2Fcallback&amp;client_id=client_01GS6W3C96KW4WRS6Z93JCE2RJ&amp;source=signin&amp;authorization_session_id=01K3FJ752SENQG21ZKMX54DVFE"><span class="s2">api/login?provider=GitHubOAuth&amp;amp;state=%257B%2522returnTo%2522%253A%2522%252Fdashboard%2522%252C%2522nonce%2522%253A%25227aff1275-5ab8-4171-9de4-6bce45a3139c%2522%257D&amp;amp;redirect_uri=https%3A%2F%2Fcursor.com%2Fapi%2Fauth%2Fcallback&amp;amp;client_id=client_01GS6W3C96KW4WRS6Z93JCE2RJ&amp;amp;source=signin&amp;amp;authorization_session_id=01K3FJ752SENQG21ZKMX54DVFE</span></a>" data-accent-color="gray" data-method="github" class="rt-reset rt-BaseButton rt-r-size-3 rt-variant-surface rt-high-contrast rt-Button ak-AuthButton"&gt;&lt;svg fill="none" height="16" viewBox="0 0 15 15" width="16" xmlns="http://www.w3.org/2000/svg" class="ak-AuthButtonIcon"&gt;&lt;path clip-rule="evenodd" d="M7.49933 0.25C3.49635 0.25 0.25 3.49593 0.25 7.50024C0.25 10.703 2.32715 13.4206 5.2081 14.3797C5.57084 14.446 5.70302 14.2222 5.70302 14.0299C5.70302 13.8576 5.69679 13.4019 5.69323 12.797C3.67661 13.235 3.25112 11.825 3.25112 11.825C2.92132 10.9874 2.44599 10.7644 2.44599 10.7644C1.78773 10.3149 2.49584 10.3238 2.49584 10.3238C3.22353 10.375 3.60629 11.0711 3.60629 11.0711C4.25298 12.1788 5.30335 11.8588 5.71638 11.6732C5.78225 11.205 5.96962 10.8854 6.17658 10.7043C4.56675 10.5209 2.87415 9.89918 2.87415 7.12104C2.87415 6.32925 3.15677 5.68257 3.62053 5.17563C3.54576 4.99226 3.29697 4.25521 3.69174 3.25691C3.69174 3.25691 4.30015 3.06196 5.68522 3.99973C6.26337 3.83906 6.8838 3.75895 7.50022 3.75583C8.1162 3.75895 8.73619 3.83906 9.31523 3.99973C10.6994 3.06196 11.3069 3.25691 11.3069 3.25691C11.7026 4.25521 11.4538 4.99226 11.3795 5.17563C11.8441 5.68257 12.1245 6.32925 12.1245 7.12104C12.1245 9.9063 10.4292 10.5192 8.81452 10.6985C9.07444 10.9224 9.30633 11.3648 9.30633 12.0413C9.30633 13.0102 9.29742 13.7922 9.29742 14.0299C9.29742 14.2239 9.42828 14.4496 9.79591 14.3788C12.6746 13.4179 14.75 10.7025 14.75 7.50024C14.75 3.49593 11.5036 0.25 7.49933 0.25Z" fill="currentColor" fill-rule="evenodd"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;span data-has-icon="true" class="rt-Text rt-r-size-2 xs:rt-r-size-3 ak-AuthButtonLabel"&gt;Continue with &lt;!-- --&gt;GitHub&lt;/span&gt;&lt;/a&gt;&lt;a href="<a href="https://authenticator.cursor.sh/api/login?provider=AppleOAuth&amp;state=%257B%2522returnTo%2522%253A%2522%252Fdashboard%2522%252C%2522nonce%2522%253A%25227aff1275-5ab8-4171-9de4-6bce45a3139c%2522%257D&amp;redirect_uri=https%3A%2F%2Fcursor.com%2Fapi%2Fauth%2Fcallback&amp;client_id=client_01GS6W3C96KW4WRS6Z93JCE2RJ&amp;source=signin&amp;authorization_session_id=01K3FJ752SENQG21ZKMX54DVFE"><span class="s2">api/login?provider=AppleOAuth&amp;amp;state=%257B%2522returnTo%2522%253A%2522%252Fdashboard%2522%252C%2522nonce%2522%253A%25227aff1275-5ab8-4171-9de4-6bce45a3139c%2522%257D&amp;amp;redirect_uri=https%3A%2F%2Fcursor.com%2Fapi%2Fauth%2Fcallback&amp;amp;client_id=client_01GS6W3C96KW4WRS6Z93JCE2RJ&amp;amp;source=signin&amp;amp;authorization_session_id=01K3FJ752SENQG21ZKMX54DVFE</span></a>" data-accent-color="gray" data-method="apple" class="rt-reset rt-BaseButton rt-r-size-3 rt-variant-surface rt-high-contrast rt-Button ak-AuthButton"&gt;&lt;svg fill="none" height="15" style="overflow:visible" viewBox="0 0 15 15" width="15" xmlns="http://www.w3.org/2000/svg" class="ak-AuthButtonIcon"&gt;&lt;path d="M14.219 3.33667C14.1169 3.41674 12.3137 4.44312 12.3137 6.72534C12.3137 9.3651 14.6082 10.299 14.6769 10.3221C14.6663 10.379 14.3124 11.601 13.4671 12.8462C12.7134 13.942 11.9263 15.0359 10.7288 15.0359C9.53134 15.0359 9.22317 14.3333 7.84081 14.3333C6.49366 14.3333 6.01469 15.0591 4.91935 15.0591C3.82401 15.0591 3.05978 14.0451 2.18104 12.8C1.1632 11.3378 0.34082 9.06625 0.34082 6.91034C0.34082 3.45232 2.56668 1.61835 4.75732 1.61835C5.92133 1.61835 6.89164 2.39036 7.62246 2.39036C8.31802 2.39036 9.40277 1.5721 10.7271 1.5721C11.2289 1.5721 13.0321 1.61835 14.219 3.33667ZM10.0984 0.108136C10.646 -0.548247 11.0334 -1.459 11.0334 -2.36975C11.0334 -2.49605 11.0229 -2.62412 11 -2.72729C10.1089 -2.6935 9.04883 -2.12783 8.40959 -1.37895C7.90772 -0.802617 7.43931 0.108136 7.43931 1.03134C7.43931 1.1701 7.46218 1.30883 7.47277 1.35331C7.52909 1.36398 7.62067 1.37643 7.71224 1.37643C8.51172 1.37643 9.51724 0.835672 10.0984 0.108136Z" fill="currentColor"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;span data-has-icon="true" class="rt-Text rt-r-size-2 xs:rt-r-size-3 ak-AuthButtonLabel"&gt;Continue with &lt;!-- --&gt;Apple&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;input type="hidden" name="redirect_uri" value="https://cursor.com/api/auth/callback"/&gt;&lt;input type="hidden" name="authorization_session_id" value="01K3FJ752SENQG21ZKMX54DVFE"/&gt;&lt;input type="hidden" name="state" value="%7B%22returnTo%22%3A%22%2Fdashboard%22%2C%22nonce%22%3A%227aff1275-5ab8-4171-9de4-6bce45a3139c%22%7D"/&gt;&lt;/form&gt;&lt;p data-accent-color="gray" class="rt-Text rt-r-size-2 rt-r-ta-center rt-r-lt-end rt-r-mt-5"&gt;Don’t have an account?&lt;!-- --&gt; &lt;a class="rt-Text BrandedLink rt-reset" href="<a href="https://authenticator.cursor.sh/sign-up?state=%257B%2522returnTo%2522%253A%2522%252Fdashboard%2522%252C%2522nonce%2522%253A%25227aff1275-5ab8-4171-9de4-6bce45a3139c%2522%257D&amp;redirect_uri=https%3A%2F%2Fcursor.com%2Fapi%2Fauth%2Fcallback&amp;authorization_session_id=01K3FJ752SENQG21ZKMX54DVFE"><span class="s2">/sign-up?state=%257B%2522returnTo%2522%253A%2522%252Fdashboard%2522%252C%2522nonce%2522%253A%25227aff1275-5ab8-4171-9de4-6bce45a3139c%2522%257D&amp;amp;redirect_uri=https%3A%2F%2Fcursor.com%2Fapi%2Fauth%2Fcallback&amp;amp;authorization_session_id=01K3FJ752SENQG21ZKMX54DVFE</span></a>"&gt;Sign up&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;small data-accent-color="gray" style="--max-width:320px;--ml:auto;--mr:auto;grid-row-start:3;--line-height:20px;place-self:end" class="rt-Text rt-r-size-2 rt-r-ta-center rt-Box rt-r-max-w rt-r-mx ak-Footer"&gt;&lt;span aria-hidden="true" style="visibility:hidden"&gt;By creating an account, you agree to the&lt;!-- --&gt; &lt;/span&gt;&lt;a data-accent-color="gray" href="<a href="https://www.cursor.com/terms-of-service"><span class="s2">https://www.cursor.com/terms-of-service</span></a>" rel="noopener noreferrer" target="_blank" class="rt-Text rt-reset rt-Link rt-r-tw-nowrap rt-underline-hover"&gt;Terms of Service&lt;/a&gt; and &lt;a data-accent-color="gray" href="<a href="https://www.cursor.com/privacy"><span class="s2">https://www.cursor.com/privacy</span></a>" rel="noopener noreferrer" target="_blank" class="rt-Text rt-reset rt-Link rt-r-tw-nowrap rt-underline-hover"&gt;Privacy Policy&lt;/a&gt;&lt;/small&gt;&lt;/div&gt;&lt;/div&gt;&lt;script&gt;addEventListener("submit",function(a){if(!a.defaultPrevented){var c=a.target,d=a.submitter,e=c.action,b=d;if(d){var f=d.getAttribute("formAction");null!=f&amp;&amp;(e=f,b=null)}"javascript:throw new Error('React form unexpectedly submitted.')"===e&amp;&amp;(a.preventDefault(),b?(a=document.createElement("input"),a.name=b.name,a.value=b.value,b.parentNode.insertBefore(a,b),b=new FormData(c),a.parentNode.removeChild(a)):b=new FormData(c),a=c.ownerDocument||c,(a.$$reactFormReplay=a.$$reactFormReplay||[]).push(c,d,b))}});&lt;/script&gt;&lt;script src="<a href="https://authenticator.cursor.sh/_next/static/chunks/webpack-3c546a841db1f179.js"><span class="s2">/_next/static/chunks/webpack-3c546a841db1f179.js</span></a>" async=""&gt;&lt;/script&gt;&lt;script&gt;(self.__next_f=self.__next_f||[]).push([0]);self.__next_f.push([2,null])&lt;/script&gt;&lt;script&gt;self.__next_f.push([1,"1:HL[\"/_next/static/media/0336a89fb4e7fc1d-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n2:HL[\"/_next/static/css/0c172493616c03c2.css\",\"style\"]\n3:HL[\"/_next/static/css/947c5050edc3a9dc.css\",\"style\"]\n"])&lt;/script&gt;&lt;script&gt;self.__next_f.push([1,"4:I[30274,[],\"\"]\nb:I[85190,[\"8602\",\"static/chunks/8602-4dba9927f9e0c8e5.js\",\"8238\",\"static/chunks/8238-2f5f20e5be33cea3.js\",\"351\",\"static/chunks/351-99ea5389203e458c.js\",\"6470\",\"static/chunks/app/global-error-d7248095e822a40f.js\"],\"default\"]\nc:[]\n0:[\"$\",\"$L4\",null,{\"buildId\":\"955lYx-ECfmWcQn6lmIwD\",\"assetPrefix\":\"\",\"urlParts\":[\"\",\"?client_id=client_01GS6W3C96KW4WRS6Z93JCE2RJ\u0026redirect_uri=https%3A%2F%2Fcursor.com%2Fapi%2Fauth%2Fcallback\u0026response_type=code\u0026state=%257B%2522returnTo%2522%253A%2522%252Fdashboard%2522%252C%2522nonce%2522%253A%25227aff1275-5ab8-4171-9de4-6bce45a3139c%2522%257D\u0026authorization_session_id=01K3FJ752SENQG21ZKMX54DVFE\"],\"initialTree\":[\"\",{\"children\":[\"(root)\",{\"children\":[\"(sign-in)\",{\"children\":[\"__PAGE__?{\\\"client_id\\\":\\\"client_01GS6W3C96KW4WRS6Z93JCE2RJ\\\",\\\"redirect_uri\\\":\\\"https://cursor.com/api/auth/callback\\\",\\\"response_type\\\":\\\"code\\\",\\\"state\\\":\\\"%7B%22returnTo%22%3A%22%2Fdashboard%22%2C%22nonce%22%3A%227aff1275-5ab8-4171-9de4-6bce45a3139c%22%7D\\\",\\\"authorization_session_id\\\":\\\"01K3FJ752SENQG21ZKMX54DVFE\\\"}\",{}]}]}]},\"$undefined\",\"$undefined\",true],\"initialSeedData\":[\"\",{\"children\":[\"(root)\",{\"children\":[\"(sign-in)\",{\"children\":[\"__PAGE__\",{},[[\"$L5\",\"$L6\",null],null],null]},[[null,\"$L7\"],null],null]},[[null,\"$L8\"],null],null]},[[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/0c172493616c03c2.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/947c5050edc3a9dc.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}]],\"$L9\"],null],null],\"couldBeIntercepted\":false,\"initialHead\":[null,\"$La\"],\"globalErrorComponent\":\"$b\",\"missingSlots\":\"$Wc\"}]\n"])&lt;/script&gt;&lt;script&gt;self.__next_f.push([1,"d:I[13129,[],\"\"]\ne:I[25223,[\"5211\",\"static/chunks/a9fa95c6-ac5231f5b1cee899.js\",\"8602\",\"static/chunks/8602-4dba9927f9e0c8e5.js\",\"8238\",\"static/chunks/8238-2f5f20e5be33cea3.js\",\"7854\",\"static/chunks/7854-64ca57abf8681b7a.js\",\"7601\",\"static/chunks/app/error-b5b870e133e2ff33.js\"],\"default\"]\nf:I[83520,[],\"\"]\n10:I[79489,[\"8602\",\"static/chunks/8602-4dba9927f9e0c8e5.js\",\"8238\",\"static/chunks/8238-2f5f20e5be33cea3.js\",\"8315\",\"static/chunks/8315-d29e8f818eb5c6b8.js\",\"2907\",\"static/chunks/2907-fe5773783304cb12.js\",\"7854\",\"static/chunks/7854-64ca57abf8681b7a.js\",\"2207\",\"static/chunks/2207-2b4443f28b48d3cb.js\",\"7992\",\"static/chunks/7992-5a1fd700e61cf26e.js\",\"7884\",\"static/chunks/7884-07ccc82c5300cf15.js\",\"5802\",\"static/chunks/5802-42fe060ba3e68a39.js\",\"8577\",\"static/chunks/8577-30e2f0b02c897bb3.js\",\"3709\",\"static/chunks/3709-744c095a2a29b966.js\",\"5514\",\"static/chunks/app/(root)/(sign-in)/page-a7204ec30c1d38f3.js\"],\"Theme\"]\n11:I[47854,[\"8602\",\"static/chunks/8602-4dba9927f9e0c8e5.js\",\"8238\",\"static/chunks/8238-2f5f20e5be33cea3.js\",\"8315\",\"static/chunks/8315-d29e8f818eb5c6b8.js\",\"2907\",\"static/chunks/2907-fe5773783304cb12.js\",\"7854\",\"static/chunks/7854-64ca57abf8681b7a.js\",\"2207\",\"static/chunks/2207-2b4443f28b48d3cb.js\",\"7992\",\"static/chunks/7992-5a1fd700e61cf26e.js\",\"7884\",\"static/chunks/7884-07ccc82c5300cf15.js\",\"5802\",\"static/chunks/5802-42fe060ba3e68a39.js\",\"8577\",\"static/chunks/8577-30e2f0b02c897bb3.js\",\"3709\",\"static/chunks/3709-744c095a2a29b966.js\",\"5514\",\"static/chunks/app/(root)/(sign-in)/page-a7204ec30c1d38f3.js\"],\"\"]\n9:[\"$\",\"html\",null,{\"suppressHydrationWarning\":true,\"className\":\"__variable_6d6793\",\"lang\":\"en\",\"children\":[\"$\",\"body\",null,{\"children\":[\"$\",\"$Ld\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$e\",\"errorStyles\":[],\"errorScripts\":[],\"template\":[\"$\",\"$Lf\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[\"$\",\"$L10\",null,{\"asChild\":true,\"accentColor\":\"gray\",\"grayColor\":\"gray\",\"children\":[\"$\",\"div\",null,{\"style\":{\"--grid-template-columns\":\"minmax(0, "])&lt;/script&gt;&lt;script&gt;self.__next_f.push([1,"440px)\",\"--grid-template-rows\":\"repeat(3, min-content)\",\"--min-width\":\"320px\",\"--min-height\":\"100dvh\",\"alignContent\":\"space-between\"},\"children\":[\"$\",\"div\",null,{\"data-hak-page\":\"not-found\",\"style\":{\"gridRowStart\":2},\"children\":[[\"$\",\"h1\",null,{\"children\":\"Page not found\",\"data-accent-color\":\"$undefined\",\"style\":\"$undefined\",\"className\":\"rt-Heading rt-r-size-6 rt-r-ta-center\"}],[\"$\",\"div\",null,{\"children\":[\"$\",\"p\",null,{\"children\":[\"This page doesn't exist. Return to\",\" \",[\"$\",\"$L11\",null,{\"href\":\"/\",\"children\":\"sign-in\",\"data-accent-color\":\"$undefined\",\"style\":\"$undefined\",\"className\":\"rt-Text BrandedLink rt-reset\"}],\".\"],\"data-accent-color\":\"$undefined\",\"style\":\"$undefined\",\"className\":\"rt-Text rt-r-size-3 rt-r-ta-center\"}],\"style\":\"$undefined\",\"className\":\"rt-reset rt-BaseCard rt-Card rt-r-size-4 xs:rt-r-size-5 rt-variant-surface ak-Card\"}]],\"className\":\"rt-Flex rt-r-fd-column rt-r-gap-5 rt-r-pt-4 rt-r-pb-9 ak-Content\"}],\"className\":\"rt-Grid rt-r-gtc rt-r-gtr rt-r-ai-center rt-r-jc-center rt-r-p-4 rt-r-min-w rt-r-min-h ak-Background\"}]}],\"notFoundStyles\":[]}]}]}]\na:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"meta\",\"1\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"2\",{\"children\":\"Sign in\"}],[\"$\",\"meta\",\"3\",{\"name\":\"next-size-adjust\"}]]\n5:null\n"])&lt;/script&gt;&lt;script&gt;self.__next_f.push([1,"13:I[24005,[\"8602\",\"static/chunks/8602-4dba9927f9e0c8e5.js\",\"8238\",\"static/chunks/8238-2f5f20e5be33cea3.js\",\"8315\",\"static/chunks/8315-d29e8f818eb5c6b8.js\",\"2907\",\"static/chunks/2907-fe5773783304cb12.js\",\"7854\",\"static/chunks/7854-64ca57abf8681b7a.js\",\"2207\",\"static/chunks/2207-2b4443f28b48d3cb.js\",\"7992\",\"static/chunks/7992-5a1fd700e61cf26e.js\",\"7884\",\"static/chunks/7884-07ccc82c5300cf15.js\",\"5802\",\"static/chunks/5802-42fe060ba3e68a39.js\",\"8577\",\"static/chunks/8577-30e2f0b02c897bb3.js\",\"3709\",\"static/chunks/3709-744c095a2a29b966.js\",\"5514\",\"static/chunks/app/(root)/(sign-in)/page-a7204ec30c1d38f3.js\"],\"Favicon\"]\n14:I[62470,[\"7996\",\"static/chunks/907791fa-f398c33ea32e542c.js\",\"8602\",\"static/chunks/8602-4dba9927f9e0c8e5.js\",\"8238\",\"static/chunks/8238-2f5f20e5be33cea3.js\",\"8315\",\"static/chunks/8315-d29e8f818eb5c6b8.js\",\"2907\",\"static/chunks/2907-fe5773783304cb12.js\",\"2207\",\"static/chunks/2207-2b4443f28b48d3cb.js\",\"5656\",\"static/chunks/5656-c6ae35b0b5745e70.js\",\"7884\",\"static/chunks/7884-07ccc82c5300cf15.js\",\"8332\",\"static/chunks/app/(root)/layout-df50673362a6d83c.js\"],\"PageTracker\"]\n15:I[13264,[\"7996\",\"static/chunks/907791fa-f398c33ea32e542c.js\",\"8602\",\"static/chunks/8602-4dba9927f9e0c8e5.js\",\"8238\",\"static/chunks/8238-2f5f20e5be33cea3.js\",\"8315\",\"static/chunks/8315-d29e8f818eb5c6b8.js\",\"2907\",\"static/chunks/2907-fe5773783304cb12.js\",\"2207\",\"static/chunks/2207-2b4443f28b48d3cb.js\",\"5656\",\"static/chunks/5656-c6ae35b0b5745e70.js\",\"7884\",\"static/chunks/7884-07ccc82c5300cf15.js\",\"8332\",\"static/chunks/app/(root)/layout-df50673362a6d83c.js\"],\"Fingerprint\"]\n16:I[55552,[\"7996\",\"static/chunks/907791fa-f398c33ea32e542c.js\",\"8602\",\"static/chunks/8602-4dba9927f9e0c8e5.js\",\"8238\",\"static/chunks/8238-2f5f20e5be33cea3.js\",\"8315\",\"static/chunks/8315-d29e8f818eb5c6b8.js\",\"2907\",\"static/chunks/2907-fe5773783304cb12.js\",\"2207\",\"static/chunks/2207-2b4443f28b48d3cb.js\",\"5656\",\"static/chunks/5656-c6ae35b0b5745e70.js\",\"7884\",\"static/chunks/7884-07ccc82c5300cf15.js\",\"8332\",\"static/chunks/app/(root)/layout-df50673362a6d83c.js\"],\"ThemeProvi"])&lt;/script&gt;&lt;script&gt;self.__next_f.push([1,"der\"]\n7:[\"$\",\"div\",null,{\"style\":{\"--grid-template-columns\":\"minmax(0, 440px)\",\"--grid-template-rows\":\"repeat(3, min-content)\",\"--min-width\":\"320px\",\"--min-height\":\"100dvh\",\"alignContent\":\"space-between\"},\"children\":[\"$\",\"$Ld\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"(root)\",\"children\",\"(sign-in)\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$Lf\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"notFoundStyles\":\"$undefined\"}],\"className\":\"rt-Grid rt-r-gtc rt-r-gtr rt-r-ai-center rt-r-jc-center rt-r-p-4 rt-r-min-w rt-r-min-h ak-Background\"}]\n12:T2c55,"])&lt;/script&gt;&lt;script&gt;self.__next_f.push([1,"\n @layer branding {\n \n\n.radix-themes {\n --cursor-button: pointer;\n --cursor-disabled: default;\n --cursor-link: pointer;\n --cursor-menu-item: pointer;\n --cursor-slider-thumb: pointer;\n --cursor-slider-thumb-active: pointer;\n --cursor-switch: pointer;\n\n --custom-font-family: \"\";\n --system-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI (Custom)', Roboto, 'Helvetica Neue', 'Open Sans (Custom)', system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';\n --default-font-family: var(--custom-font-family, Inter), var(--system-font-family);\n --heading-font-family: var(--custom-font-family, InterDisplay), var(--system-font-family);\n --font-weight-bold: 600;\n\n --code-padding-top: 0em;\n --code-padding-bottom: 0.075em;\n --code-font-family: 'IBM Plex Mono', 'Menlo', monospace, 'Apple Color Emoji',\n 'Segoe UI Emoji';\n\n --marker-font-size-adjust: 0.97222;\n --marker-font-weight: 500;\n\n font-feature-settings: 'liga' 1, 'calt' 1;\n}\n\n@supports (font-variation-settings: normal) {\n .radix-themes {\n --default-font-family: var(--custom-font-family, var(--inter-variable-font, InterVariable)), var(--system-font-family);\n --heading-font-family: var(--custom-font-family, var(--inter-variable-font, InterVariable)), var(--system-font-family);\n }\n}\n\n\n:root, .light, .light-theme {\n --branded-link-color: #5753C6;\n --branded-link-text-decoration-color: #5753c666;\n --branded-button-color: #FFFFFF;\n --branded-button-background: #000000;\n --branded-button-hover-background: #2e2e2e;\n --branded-button-active-background: #414141;\n --branded-button-box-shadow-color: transparent;\n --branded-page-background: #FCFCFC;\n}\n\n.dark, .dark-theme {\n --branded-link-color: #B1A9FF;\n --branded-link-text-decoration-color: #b1a9ff66;\n --branded-button-color: #000000;\n --branded-button-background: #FFFFFF;\n --branded-button-hover-background: #f6f6f6;\n --branded-button-active-background: #ededed;\n --branded-button-box-shadow-color: transparent;\n --branded-page-background: #000000;\n}\n\n.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme) {\n --accent-1: #fcfcfc;\n --accent-2: #f9f9f9;\n --accent-3: #f0f0f0;\n --accent-4: #e8e8e8;\n --accent-5: #e0e0e0;\n --accent-6: #d9d9d9;\n --accent-7: #cecece;\n --accent-8: #bbb;\n --accent-9: #000;\n --accent-10: #2e2e2e;\n --accent-11: #646464;\n --accent-12: #202020;\n\n --accent-a1: #00000003;\n --accent-a2: #00000006;\n --accent-a3: #0000000f;\n --accent-a4: #00000017;\n --accent-a5: #0000001f;\n --accent-a6: #00000026;\n --accent-a7: #00000031;\n --accent-a8: #00000044;\n --accent-a9: #000000;\n --accent-a10: #000000d1;\n --accent-a11: #0000009b;\n --accent-a12: #000000df;\n\n --gray-1: #fcfcfc;\n --gray-2: #f9f9f9;\n --gray-3: #f0f0f0;\n --gray-4: #e8e8e8;\n --gray-5: #e0e0e0;\n --gray-6: #d9d9d9;\n --gray-7: #cecece;\n --gray-8: #bbb;\n --gray-9: #8d8d8d;\n --gray-10: #838383;\n --gray-11: #646464;\n --gray-12: #202020;\n\n --gray-a1: #00000003;\n --gray-a2: #00000006;\n --gray-a3: #0000000f;\n --gray-a4: #00000017;\n --gray-a5: #0000001f;\n --gray-a6: #00000026;\n --gray-a7: #00000031;\n --gray-a8: #00000044;\n --gray-a9: #00000072;\n --gray-a10: #0000007c;\n --gray-a11: #0000009b;\n --gray-a12: #000000df;\n\n --accent-track: var(--accent-9);\n --accent-indicator: var(--accent-9);\n --accent-contrast: #fff;\n --gray-surface: #ffffffcc;\n}\n\n.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme), :where(.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme)) [data-accent-color] {\n --focus-1: #fdfdff;\n --focus-2: #f7f8ff;\n --focus-3: #eff1fe;\n --focus-4: #e4e8ff;\n --focus-5: #d8ddff;\n --focus-6: #c8ceff;\n --focus-7: #b5bbf9;\n --focus-8: #999ff0;\n --focus-9: #5e5ad5;\n --focus-10: #564fcc;\n --focus-11: #5753c6;\n --focus-12: #292862;\n\n --focus-a1: #0000ff02;\n --focus-a2: #0020ff08;\n --focus-a3: #0020f010;\n --focus-a4: #0026ff1b;\n --focus-a5: #0021ff27;\n --focus-a6: #001cff37;\n --focus-a7: #0115eb4a;\n --focus-a8: #000fda66;\n --focus-a9: #0600bea5;\n --focus-a10: #0a00b5b0;\n --focus-a11: #0600abac;\n --focus-a12: #010045d7;\n}\n\n@supports (color: color(display-p3 1 1 1)) {\n @media (color-gamut: p3) {\n .radix-themes:not(.dark, .dark-theme),\n .radix-themes:is(.light, .light-theme) {\n --accent-a1: color(display-p3 0 0 0 / 0.0118);\n --accent-a2: color(display-p3 0 0 0 / 0.0235);\n --accent-a3: color(display-p3 0 0 0 / 0.0588);\n --accent-a4: color(display-p3 0 0 0 / 0.0902);\n --accent-a5: color(display-p3 0 0 0 / 0.1216);\n --accent-a6: color(display-p3 0 0 0 / 0.149);\n --accent-a7: color(display-p3 0 0 0 / 0.1922);\n --accent-a8: color(display-p3 0 0 0 / 0.2667);\n --accent-a9: color(display-p3 0 0 0);\n --accent-a10: color(display-p3 0 0 0 / 0.8196);\n --accent-a11: color(display-p3 0 0 0 / 0.6078);\n --accent-a12: color(display-p3 0 0 0 / 0.8745);\n\n --gray-a1: color(display-p3 0 0 0 / 0.0118);\n --gray-a2: color(display-p3 0 0 0 / 0.0235);\n --gray-a3: color(display-p3 0 0 0 / 0.0588);\n --gray-a4: color(display-p3 0 0 0 / 0.0902);\n --gray-a5: color(display-p3 0 0 0 / 0.1216);\n --gray-a6: color(display-p3 0 0 0 / 0.149);\n --gray-a7: color(display-p3 0 0 0 / 0.1922);\n --gray-a8: color(display-p3 0 0 0 / 0.2667);\n --gray-a9: color(display-p3 0 0 0 / 0.4471);\n --gray-a10: color(display-p3 0 0 0 / 0.4863);\n --gray-a11: color(display-p3 0 0 0 / 0.6078);\n --gray-a12: color(display-p3 0 0 0 / 0.8745);\n }\n\n .radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme), :where(.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme)) [data-accent-color] {\n --focus-a1: color(display-p3 0.0196 0.0196 1 / 0.008);\n --focus-a2: color(display-p3 0.0196 0.1451 0.8784 / 0.032);\n --focus-a3: color(display-p3 0.0078 0.1294 0.8784 / 0.063);\n --focus-a4: color(display-p3 0.0039 0.1176 0.9255 / 0.102);\n --focus-a5: color(display-p3 0.0078 0.1137 0.9216 / 0.15);\n --focus-a6: color(display-p3 0.0039 0.0941 0.9294 / 0.212);\n --focus-a7: color(display-p3 0.0039 0.0745 0.851 / 0.287);\n --focus-a8: color(display-p3 0.0039 0.051 0.7922 / 0.397);\n --focus-a9: color(display-p3 0.0196 0 0.702 / 0.648);\n --focus-a10: color(display-p3 0.0353 0 0.6706 / 0.691);\n --focus-a11: color(display-p3 0.0196 0 0.6275 / 0.675);\n --focus-a12: color(display-p3 0.0039 0 0.251 / 0.844);\n }\n }\n}\n\n:is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme) {\n --accent-1: #111;\n --accent-2: #191919;\n --accent-3: #232323;\n --accent-4: #2a2a2a;\n --accent-5: #313131;\n --accent-6: #3a3a3a;\n --accent-7: #484848;\n --accent-8: #616161;\n --accent-9: #fff;\n --accent-10: #f6f6f6;\n --accent-11: #b4b4b4;\n --accent-12: #eee;\n\n --accent-a1: #ffffff11;\n --accent-a2: #ffffff19;\n --accent-a3: #ffffff23;\n --accent-a4: #ffffff2a;\n --accent-a5: #ffffff31;\n --accent-a6: #ffffff3a;\n --accent-a7: #ffffff48;\n --accent-a8: #ffffff61;\n --accent-a9: #ffffff;\n --accent-a10: #fffffff6;\n --accent-a11: #ffffffb4;\n --accent-a12: #ffffffee;\n\n --gray-1: #000;\n --gray-2: #191919;\n --gray-3: #191919;\n --gray-4: #191919;\n --gray-5: #1e1e1e;\n --gray-6: #242424;\n --gray-7: #2e2e2e;\n --gray-8: #3f3f3f;\n --gray-9: #494949;\n --gray-10: #5d5d5d;\n --gray-11: #9e9e9e;\n --gray-12: #eee;\n\n --gray-a1: #00000000;\n --gray-a2: #ffffff19;\n --gray-a3: #ffffff19;\n --gray-a4: #ffffff19;\n --gray-a5: #ffffff1e;\n --gray-a6: #ffffff24;\n --gray-a7: #ffffff2e;\n --gray-a8: #ffffff3f;\n --gray-a9: #ffffff49;\n --gray-a10: #ffffff5d;\n --gray-a11: #ffffff9e;\n --gray-a12: #ffffffee;\n\n --accent-track: var(--accent-9);\n --accent-indicator: var(--accent-9);\n --accent-contrast: #000;\n --gray-surface: rgba(0, 0, 0, 0.05);\n}\n\n.radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme), :where(.radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme)) [data-accent-color] {\n --focus-1: #14131e;\n --focus-2: #171625;\n --focus-3: #262047;\n --focus-4: #312662;\n --focus-5: #3b2f71;\n --focus-6: #463b80;\n --focus-7: #524793;\n --focus-8: #6255ae;\n --focus-9: #6d55d2;\n --focus-10: #7966db;\n --focus-11: #b1a9ff;\n --focus-12: #e0dffe;\n\n --focus-a1: #aaa2ff1e;\n --focus-a2: #9f98ff25;\n --focus-a3: #8973ff47;\n --focus-a4: #8063ff62;\n --focus-a5: #866bff71;\n --focus-a6: #8c76ff80;\n --focus-a7: #8f7cff93;\n --focus-a8: #907dffae;\n --focus-a9: #8467ffd2;\n --focus-a10: #8d77ffdb;\n --focus-a11: #b1a9ff;\n --focus-a12: #e1e0fffe;\n}\n\n@supports (color: color(display-p3 1 1 1)) {\n @media (color-gamut: p3) {\n :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme) {\n --accent-a1: color(display-p3 1 1 1 / 0.0667);\n --accent-a2: color(display-p3 1 1 1 / 0.098);\n --accent-a3: color(display-p3 1 1 1 / 0.1373);\n --accent-a4: color(display-p3 1 1 1 / 0.1647);\n --accent-a5: color(display-p3 1 1 1 / 0.1922);\n --accent-a6: color(display-p3 1 1 1 / 0.2275);\n --accent-a7: color(display-p3 1 1 1 / 0.2824);\n --accent-a8: color(display-p3 1 1 1 / 0.3804);\n --accent-a9: color(display-p3 1 1 1);\n --accent-a10: color(display-p3 1 1 1 / 0.9647);\n --accent-a11: color(display-p3 1 1 1 / 0.7059);\n --accent-a12: color(display-p3 1 1 1 / 0.9333);\n\n --gray-a1: color(display-p3 0 0 0 / 0);\n --gray-a2: color(display-p3 1 1 1 / 0.098);\n --gray-a3: color(display-p3 1 1 1 / 0.098);\n --gray-a4: color(display-p3 1 1 1 / 0.098);\n --gray-a5: color(display-p3 1 1 1 / 0.1176);\n --gray-a6: color(display-p3 1 1 1 / 0.1412);\n --gray-a7: color(display-p3 1 1 1 / 0.1804);\n --gray-a8: color(display-p3 1 1 1 / 0.2471);\n --gray-a9: color(display-p3 1 1 1 / 0.2863);\n --gray-a10: color(display-p3 1 1 1 / 0.3647);\n --gray-a11: color(display-p3 1 1 1 / 0.6196);\n --gray-a12: color(display-p3 1 1 1 / 0.9333);\n }\n\n .radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme), :where(.radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme)) [data-accent-color] {\n --focus-a1: color(display-p3 0.6902 0.6549 1 / 0.114);\n --focus-a2: color(display-p3 0.6353 0.6078 0.9961 / 0.142);\n --focus-a3: color(display-p3 0.5373 0.4667 1 / 0.271);\n --focus-a4: color(display-p3 0.502 0.4039 1 / 0.369);\n --focus-a5: color(display-p3 0.5255 0.4314 1 / 0.428);\n --focus-a6: color(display-p3 0.549 0.4784 1 / 0.487);\n --focus-a7: color(display-p3 0.5647 0.502 1 / 0.557);\n --focus-a8: color(display-p3 0.5725 0.5059 1 / 0.659);\n --focus-a9: color(display-p3 0.5176 0.4235 1 / 0.797);\n --focus-a10: color(display-p3 0.5569 0.4863 1 / 0.832);\n --focus-a11: color(display-p3 0.7059 0.6784 1 / 0.977);\n --focus-a12: color(display-p3 0.8902 0.8863 1 / 0.985);\n }\n }\n}\n\n .radix-themes {\n --color-background: var(--branded-page-background);\n }\n :root body {\n margin: 0;\n background-color: var(--branded-page-background);\n }\n }\n "])&lt;/script&gt;&lt;script&gt;self.__next_f.push([1,"8:[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"$12\"}}],null,[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"@layer custom-elements {\\n .ak-Background {\\n background-color: var(--branded-page-background);\\n }\\n \\n}\"}}],[\"$\",\"$L13\",null,{\"darkFaviconPath\":\"$undefined\",\"lightFaviconPath\":\"$undefined\"}],[\"$\",\"$L14\",null,{\"children\":[[\"$\",\"$L15\",null,{}],[\"$\",\"$L16\",null,{\"attribute\":\"class\",\"forcedTheme\":\"dark\",\"nonce\":\"KA4SQMmL70295xRhQx6dpg==\",\"value\":{\"light\":\"light-theme\",\"dark\":\"dark-theme\"},\"children\":[\"$\",\"$L10\",null,{\"radius\":\"small\",\"children\":[\"$\",\"$Ld\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"(root)\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$Lf\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"notFoundStyles\":\"$undefined\"}]}]}]]}]]\n6:[[\"$\",\"div\",null,{\"data-hak-page\":\"sign-in\",\"style\":{\"gridRowStart\":2},\"children\":[\"$L17\",\"$L18\"],\"className\":\"rt-Flex rt-r-fd-column rt-r-gap-5 rt-r-pt-4 rt-r-pb-9 ak-Content\"}],\"$L19\"]\n"])&lt;/script&gt;&lt;script&gt;self.__next_f.push([1,"1a:\"$Sreact.fragment\"\n1b:I[68621,[\"8602\",\"static/chunks/8602-4dba9927f9e0c8e5.js\",\"8238\",\"static/chunks/8238-2f5f20e5be33cea3.js\",\"8315\",\"static/chunks/8315-d29e8f818eb5c6b8.js\",\"2907\",\"static/chunks/2907-fe5773783304cb12.js\",\"7854\",\"static/chunks/7854-64ca57abf8681b7a.js\",\"2207\",\"static/chunks/2207-2b4443f28b48d3cb.js\",\"7992\",\"static/chunks/7992-5a1fd700e61cf26e.js\",\"7884\",\"static/chunks/7884-07ccc82c5300cf15.js\",\"5802\",\"static/chunks/5802-42fe060ba3e68a39.js\",\"8577\",\"static/chunks/8577-30e2f0b02c897bb3.js\",\"3709\",\"static/chunks/3709-744c095a2a29b966.js\",\"5514\",\"static/chunks/app/(root)/(sign-in)/page-a7204ec30c1d38f3.js\"],\"BotCheckClient\"]\n1c:I[13449,[\"8602\",\"static/chunks/8602-4dba9927f9e0c8e5.js\",\"8238\",\"static/chunks/8238-2f5f20e5be33cea3.js\",\"8315\",\"static/chunks/8315-d29e8f818eb5c6b8.js\",\"2907\",\"static/chunks/2907-fe5773783304cb12.js\",\"7854\",\"static/chunks/7854-64ca57abf8681b7a.js\",\"2207\",\"static/chunks/2207-2b4443f28b48d3cb.js\",\"7992\",\"static/chunks/7992-5a1fd700e61cf26e.js\",\"7884\",\"static/chunks/7884-07ccc82c5300cf15.js\",\"5802\",\"static/chunks/5802-42fe060ba3e68a39.js\",\"8577\",\"static/chunks/8577-30e2f0b02c897bb3.js\",\"3709\",\"static/chunks/3709-744c095a2a29b966.js\",\"5514\",\"static/chunks/app/(root)/(sign-in)/page-a7204ec30c1d38f3.js\"],\"SignInForm\"]\n1e:I[22935,[\"8602\",\"static/chunks/8602-4dba9927f9e0c8e5.js\",\"8238\",\"static/chunks/8238-2f5f20e5be33cea3.js\",\"8315\",\"static/chunks/8315-d29e8f818eb5c6b8.js\",\"2907\",\"static/chunks/2907-fe5773783304cb12.js\",\"7854\",\"static/chunks/7854-64ca57abf8681b7a.js\",\"2207\",\"static/chunks/2207-2b4443f28b48d3cb.js\",\"7992\",\"static/chunks/7992-5a1fd700e61cf26e.js\",\"7884\",\"static/chunks/7884-07ccc82c5300cf15.js\",\"5802\",\"static/chunks/5802-42fe060ba3e68a39.js\",\"8577\",\"static/chunks/8577-30e2f0b02c897bb3.js\",\"3709\",\"static/chunks/3709-744c095a2a29b966.js\",\"5514\",\"static/chunks/app/(root)/(sign-in)/page-a7204ec30c1d38f3.js\"],\"BotCheckTokenInput\"]\n17:[\"$\",\"div\",null,{\"children\":[[\"$\",\"$1a\",\"Icon\",{\"children\":[[\"$\",\"img\",null,{\"alt\":\"Logo\",\"src\":\"https://workos.imgix.net/app-branding/envi"])&lt;/script&gt;&lt;script&gt;self.__next_f.push([1,"ronment_01GS6W3C901N50J4ZGFB6V1Z6C/01HZ3C68S32DEFKTDAYKX864DE\",\"className\":\"ak-Logo ak-Logo-light ak-LogoIcon\"}],[\"$\",\"img\",null,{\"alt\":\"Logo\",\"src\":\"https://workos.imgix.net/app-branding/environment_01GS6W3C901N50J4ZGFB6V1Z6C/01HZ3C68S3T4CVGPHJPA5JQ19B\",\"className\":\"ak-Logo ak-Logo-dark ak-LogoIcon\"}]]}],[\"$\",\"h1\",null,{\"children\":\"Sign in\",\"data-accent-color\":\"$undefined\",\"style\":\"$undefined\",\"className\":\"rt-Heading rt-r-size-6 rt-r-ta-center rt-r-tw-balance ak-Heading\"}]],\"style\":\"$undefined\",\"className\":\"rt-Flex rt-r-fd-column rt-r-ai-center rt-r-jc-center rt-r-gap-4 ak-Header\"}]\n19:[\"$\",\"small\",null,{\"children\":[[\"$\",\"span\",null,{\"aria-hidden\":true,\"style\":{\"visibility\":\"hidden\"},\"children\":[\"By creating an account, you agree to the\",\" \"]}],[[\"$\",\"a\",null,{\"children\":\"Terms of Service\",\"data-accent-color\":\"gray\",\"href\":\"https://www.cursor.com/terms-of-service\",\"rel\":\"noopener noreferrer\",\"target\":\"_blank\",\"style\":\"$undefined\",\"className\":\"rt-Text rt-reset rt-Link rt-r-tw-nowrap rt-underline-hover\"}],\" and \",[\"$\",\"a\",null,{\"children\":\"Privacy Policy\",\"data-accent-color\":\"gray\",\"href\":\"https://www.cursor.com/privacy\",\"rel\":\"noopener noreferrer\",\"target\":\"_blank\",\"style\":\"$undefined\",\"className\":\"rt-Text rt-reset rt-Link rt-r-tw-nowrap rt-underline-hover\"}]]],\"data-accent-color\":\"gray\",\"style\":{\"--max-width\":\"320px\",\"--ml\":\"auto\",\"--mr\":\"auto\",\"gridRowStart\":3,\"--line-height\":\"20px\",\"placeSelf\":\"end\"},\"className\":\"rt-Text rt-r-size-2 rt-r-ta-center rt-Box rt-r-max-w rt-r-mx ak-Footer\"}]\n1d:{\"id\":\"c2e538693a70c633717214cacd5c6fdb8139f98d\",\"bound\":null}\n18:[\"$\",\"$L1b\",null,{\"siteKey\":null,\"theme\":\"dark\",\"children\":[\"$\",\"div\",null,{\"children\":[null,\"$undefined\",[\"$\",\"$L1c\",null,{\"authMethods\":{\"magic_codes\":true,\"password\":true,\"passkey\":false,\"sso\":true,\"oauth_providers\":[{\"name\":\"google\",\"label\":\"Google\",\"authorize_params\":{\"provider\":\"GoogleOAuth\"}},{\"name\":\"github\",\"label\":\"GitHub\",\"authorize_params\":{\"provider\":\"GitHubOAuth\"}},{\"name\":\"apple\",\"label\":\"Apple\",\"authorize_params\":{\"provider\":\"AppleOAuth\"}}]},\"au"])&lt;/script&gt;&lt;script&gt;self.__next_f.push([1,"thorizationSessionId\":\"01K3FJ752SENQG21ZKMX54DVFE\",\"clientId\":\"client_01GS6W3C96KW4WRS6Z93JCE2RJ\",\"displayOAuthFirst\":false,\"initialEmail\":\"$undefined\",\"initialServerErrors\":{\"email\":false},\"invitationToken\":\"$undefined\",\"organizationId\":\"$undefined\",\"redirectUri\":\"https://cursor.com/api/auth/callback\",\"signInAction\":\"$F1d\",\"source\":\"signin\",\"state\":\"%7B%22returnTo%22%3A%22%2Fdashboard%22%2C%22nonce%22%3A%227aff1275-5ab8-4171-9de4-6bce45a3139c%22%7D\",\"children\":[\"$\",\"$L1e\",null,{}]}],[\"$\",\"p\",null,{\"children\":[\"Don’t have an account?\",\" \",[\"$\",\"$L11\",null,{\"prefetch\":false,\"href\":\"/sign-up?state=%257B%2522returnTo%2522%253A%2522%252Fdashboard%2522%252C%2522nonce%2522%253A%25227aff1275-5ab8-4171-9de4-6bce45a3139c%2522%257D\u0026redirect_uri=https%3A%2F%2Fcursor.com%2Fapi%2Fauth%2Fcallback\u0026authorization_session_id=01K3FJ752SENQG21ZKMX54DVFE\",\"children\":\"Sign up\",\"data-accent-color\":\"$undefined\",\"style\":\"$undefined\",\"className\":\"rt-Text BrandedLink rt-reset\"}]],\"data-accent-color\":\"gray\",\"style\":\"$undefined\",\"className\":\"rt-Text rt-r-size-2 rt-r-ta-center rt-r-lt-end rt-r-mt-5\"}]],\"style\":\"$undefined\",\"className\":\"rt-reset rt-BaseCard rt-Card rt-r-size-4 xs:rt-r-size-5 rt-variant-surface ak-Card\"}]}]\n"])&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;</span></p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <div class="rt-Grid rt-r-gtc rt-r-gtr rt-r-ai-center rt-r-jc-center rt-r-p-4 rt-r-min-w rt-r-min-h ak-Background">
+    <div class="rt-Flex rt-r-fd-column rt-r-gap-5 rt-r-pt-4 rt-r-pb-9 ak-Content">
+      <div class="rt-Flex rt-r-fd-column rt-r-ai-center rt-r-jc-center rt-r-gap-4 ak-Header">
+        <!-- 原始Logo占位符 -->
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#5753C6"/>
+          <path d="M2 17L12 22L22 17" stroke="#5753C6" stroke-width="2"/>
+          <path d="M2 12L12 17L22 12" stroke="#5753C6" stroke-width="2"/>
+        </svg>
+        <h1 class="rt-Heading rt-r-size-6 rt-r-ta-center rt-r-tw-balance ak-Heading">Sign in</h1>
+      </div>
+      
+      <div class="rt-reset rt-BaseCard rt-Card rt-r-size-4 xs:rt-r-size-5 rt-variant-surface ak-Card">
+        <form id="loginForm">
+          <div class="rt-Flex rt-r-fd-column rt-r-gap-5">
+            <div class="rt-Flex rt-r-fd-column rt-r-gap-5 ak-AuthForm">
+              <div class="rt-Flex rt-r-fd-column rt-r-gap-2">
+                <div class="rt-Flex">
+                  <label for="email" class="rt-Text rt-r-size-2 rt-r-weight-bold rt-r-lt-start ak-Label">Email</label>
+                </div>
+                <div class="rt-TextFieldRoot rt-r-size-3 rt-variant-surface ak-TextField">
+                  <input type="email" id="email" required class="rt-reset rt-TextFieldInput" placeholder="your.email@company.com">
+                </div>
+              </div>
+              <button type="submit" class="rt-reset rt-BaseButton rt-Button BrandedButton ak-PrimaryButton rt-r-size-3">
+                Continue
+              </button>
+            </div>
+            
+            <div data-accent-color="gray" class="rt-Text rt-r-size-1 ak-TextSeparator">OR</div>
+            
+            <div class="rt-Flex rt-r-fd-column rt-r-gap-3 ak-AuthMethodsProviders">
+              <button type="button" class="rt-reset rt-BaseButton rt-r-size-3 rt-variant-surface rt-high-contrast rt-Button ak-AuthButton">
+                <svg fill="none" height="15" viewBox="0 0 16 16" width="15" xmlns="http://www.w3.org/2000/svg" class="ak-AuthButtonIcon">
+                  <g>
+                    <path d="M15.83 8.18C15.83 7.65333 15.7833 7.15333 15.7033 6.66667H8.17V9.67333H12.4833C12.29 10.66 11.7233 11.4933 10.8833 12.06V14.06H13.4567C14.9633 12.6667 15.83 10.6133 15.83 8.18Z" fill="#4285F4"></path>
+                    <path d="M8.17 16C10.33 16 12.1367 15.28 13.4567 14.06L10.8833 12.06C10.1633 12.54 9.25 12.8333 8.17 12.8333C6.08334 12.8333 4.31667 11.4267 3.68334 9.52667H1.03V11.5867C2.34334 14.2 5.04334 16 8.17 16Z" fill="#34A853"></path>
+                    <path d="M3.68334 9.52667C3.51667 9.04667 3.43 8.53333 3.43 8C3.43 7.46667 3.52334 6.95334 3.68334 6.47334V4.41334H1.03C0.483335 5.49334 0.170002 6.70667 0.170002 8C0.170002 9.29333 0.483335 10.5067 1.03 11.5867L3.68334 9.52667Z" fill="#FBBC05"></path>
+                    <path d="M8.17 3.16667C9.35 3.16667 10.4033 3.57334 11.2367 4.36667L13.5167 2.08667C12.1367 0.793334 10.33 0 8.17 0C5.04334 0 2.34334 1.8 1.03 4.41334L3.68334 6.47334C4.31667 4.57334 6.08334 3.16667 8.17 3.16667Z" fill="#EA4335"></path>
+                  </g>
+                </svg>
+                <span class="rt-Text rt-r-size-2 xs:rt-r-size-3 ak-AuthButtonLabel">Continue with Google</span>
+              </button>
+              
+              <button type="button" class="rt-reset rt-BaseButton rt-r-size-3 rt-variant-surface rt-high-contrast rt-Button ak-AuthButton">
+                <svg fill="none" height="16" viewBox="0 0 15 15" width="16" xmlns="http://www.w3.org/2000/svg" class="ak-AuthButtonIcon">
+                  <path clip-rule="evenodd" d="M7.49933 0.25C3.49635 0.25 0.25 3.49593 0.25 7.50024C0.25 10.703 2.32715 13.4206 5.2081 14.3797C5.57084 14.446 5.70302 14.2222 5.70302 14.0299C5.70302 13.8576 5.69679 13.4019 5.69323 12.797C3.67661 13.235 3.25112 11.825 3.25112 11.825C2.92132 10.9874 2.44599 10.7644 2.44599 10.7644C1.78773 10.3149 2.49584 10.3238 2.49584 10.3238C3.22353 10.375 3.60629 11.0711 3.60629 11.0711C4.25298 12.1788 5.30335 11.8588 5.71638 11.6732C5.78225 11.205 5.96962 10.8854 6.17658 10.7043C4.56675 10.5209 2.87415 9.89918 2.87415 7.12104C2.87415 6.32925 3.15677 5.68257 3.62053 5.17563C3.54576 4.99226 3.29697 4.25521 3.69174 3.25691C3.69174 3.25691 4.30015 3.06196 5.68522 3.99973C6.26337 3.83906 6.8838 3.75895 7.50022 3.75583C8.1162 3.75895 8.73619 3.83906 9.31523 3.99973C10.6994 3.06196 11.3069 3.25691 11.3069 3.25691C11.7026 4.25521 11.4538 4.99226 11.3795 5.17563C11.8441 5.68257 12.1245 6.32925 12.1245 7.12104C12.1245 9.9063 10.4292 10.5192 8.81452 10.6985C9.07444 10.9224 9.30633 11.3648 9.30633 12.0413C9.30633 13.0102 9.29742 13.7922 9.29742 14.0299C9.29742 14.2239 9.42828 14.4496 9.79591 14.3788C12.6746 13.4179 14.75 10.7025 14.75 7.50024C14.75 3.49593 11.5036 0.25 7.49933 0.25Z" fill="currentColor" fill-rule="evenodd"></path>
+                </svg>
+                <span class="rt-Text rt-r-size-2 xs:rt-r-size-3 ak-AuthButtonLabel">Continue with GitHub</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <small data-accent-color="gray" style="--max-width:320px;--ml:auto;--mr:auto;grid-row-start:3;--line-height:20px;place-self:end" class="rt-Text rt-r-size-2 rt-r-ta-center rt-Box rt-r-max-w rt-r-mx ak-Footer">
+      Don't have an account? <a href="#" class="rt-Text BrandedLink rt-reset">Sign up</a>
+    </small>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      window.location.href = 'education.html';
+    });
+  </script>
 </body>
 </html>
