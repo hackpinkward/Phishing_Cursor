@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Awareness Training</title>
+  <style>
+    :root {
+      --primary: #5753C6;
+      --primary-hover: #6d55d2;
+      --dark-bg: #0f0f15;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --light-text: #f0f0f0;
+      --border-radius: 12px;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: var(--dark-bg);
+      color: var(--light-text);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+    
+    .container {
+      max-width: 800px;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .alert-badge {
+      background: linear-gradient(45deg, #ff5252, #ff6b6b);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 24px;
+      display: inline-block;
+      margin-bottom: 2rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(255, 82, 82, 0.3);
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #B1A9FF, #6d55d2);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+    }
+    
+    .content {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      margin: 2.5rem 0;
+      text-align: left;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #B1A9FF;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    h2::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+    
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    li {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 1.2rem;
+    }
+    
+    li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #4CAF50;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .training-link {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 1.2rem 2.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(87, 83, 198, 0.4);
+    }
+    
+    .training-link:hover {
+      background: var(--primary-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(109, 85, 210, 0.5);
+    }
+    
+    .training-link:active {
+      transform: translateY(1px);
+    }
+    
+    .footer {
+      margin-top: 3rem;
+      color: #aaa;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.5rem;
+    }
+    
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .content {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="alert-badge">SECURITY ALERT</div>
+    <h1>Phishing Exercise Completed</h1>
+    
+    <div class="content">
+      <p>This was a simulated phishing test conducted by your organization's security team. No credentials were collected or stored during this exercise.</p>
+      
+      <h2>Security Awareness Tips</h2>
+      
+      <ul>
+        <li>Always verify unexpected login pages by checking the URL before entering credentials</li>
+        <li>Look for HTTPS encryption and valid certificates on login pages</li>
+        <li>Be cautious of emails requesting urgent action or sensitive information</li>
+        <li>Hover over links to preview the actual destination before clicking</li>
+        <li>Report suspicious emails to your security team immediately</li>
+      </ul>
+      
+      <p>Your participation in this exercise helps strengthen our organization's security against real threats.</p>
+    </div>
+    
+    <a href="https://your-company.com/security-training" class="training-link">
+      Complete Security Training
+    </a>
+    
+    <div class="footer">
+      <p>Security Operations Center | Employee ID: *******</p>
+      <p>Contact: security@your-company.com | Extension: 5555</p>
+    </div>
+  </div>
+</body>
+</html>
