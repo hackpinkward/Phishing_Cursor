@@ -6,12 +6,12 @@
     <title>Cursor AI - Sign In</title>
     <style>
         :root {
-            --bg-dark: #0d1117;
-            --card-bg: #161b22;
+            --bg-dark: #000000; /* 改为纯黑色背景 */
+            --card-bg: #0d0d0d; /* 更深的卡片背景 */
             --text-light: #f0f6fc;
             --accent-blue: #58a6ff;
-            --input-bg: #0d1117;
             --divider-color: #30363d;
+            --input-bg: #0a0a0a;
         }
         
         body {
@@ -30,7 +30,7 @@
             border-radius: 12px;
             padding: 32px;
             width: 320px;
-            box-shadow: 0 8px 24px rgba(1, 4, 9, 0.5);
+            box-shadow: 0 8px 24px rgba(1, 4, 9, 0.8);
             border: 1px solid var(--divider-color);
         }
         
@@ -49,6 +49,7 @@
             font-size: 24px;
             font-weight: 400;
             margin: 0 0 24px;
+            color: #ffffff;
         }
         
         .form-group {
@@ -60,6 +61,7 @@
             margin-bottom: 8px;
             font-size: 14px;
             font-weight: 500;
+            color: #c9d1d9;
         }
         
         input {
@@ -145,6 +147,7 @@
             font-size: 14px;
             cursor: pointer;
             transition: background-color 0.2s;
+            text-decoration: none; /* 移除下划线 */
         }
         
         .oauth-btn:hover {
@@ -192,11 +195,10 @@
 <body>
     <div class="login-card">
         <div class="logo">
-            <!-- Cursor AI Logo SVG -->
+            <!-- 根据图片1的简约图标 -->
             <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
                 <path d="M30 10L40 30L50 10L60 30L70 10" stroke="#58a6ff" stroke-width="4" fill="none"/>
                 <path d="M80 10V30H90V20H95V30H100V10H90V17.5H85V10H80Z" fill="#58a6ff"/>
-                <text x="105" y="25" font-family="Arial" font-size="20" fill="#f0f6fc">AI</text>
             </svg>
         </div>
         
