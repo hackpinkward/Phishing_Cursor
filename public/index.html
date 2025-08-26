@@ -5,55 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cursor AI - Sign In</title>
     <style>
-        :root {
-            --bg-dark: #000000; /* 改为纯黑色背景 */
-            --card-bg: #0d0d0d; /* 更深的卡片背景 */
-            --text-light: #f0f6fc;
-            --accent-blue: #58a6ff;
-            --divider-color: #30363d;
-            --input-bg: #0a0a0a;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            background-color: var(--bg-dark);
+            background-color: #000; /* 纯黑色背景 */
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            color: var(--text-light);
+            color: #f0f6fc;
+            padding: 20px;
         }
         
         .login-card {
-            background-color: var(--card-bg);
+            background-color: #151515; /* 匹配卡片深灰色 */
             border-radius: 12px;
             padding: 32px;
-            width: 320px;
-            box-shadow: 0 8px 24px rgba(1, 4, 9, 0.8);
-            border: 1px solid var(--divider-color);
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            border: 1px solid #2d2d2d;
         }
         
         .logo {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
-        .logo svg {
-            width: 120px;
-            height: 40px;
+        .logo-text {
+            font-size: 32px;
+            font-weight: 700;
+            color: #58a6ff;
+            background: linear-gradient(to right, #58a6ff, #58a6ff, #1f6feb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .trusted-by {
+            text-align: center;
+            color: #8b949e;
+            font-size: 13px;
+            margin-bottom: 28px;
+            letter-spacing: 0.2px;
         }
         
         h1 {
             text-align: center;
             font-size: 24px;
-            font-weight: 400;
-            margin: 0 0 24px;
-            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 24px;
+            color: #e6e6e6;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         
         label {
@@ -66,52 +78,50 @@
         
         input {
             width: 100%;
-            padding: 12px;
-            background-color: var(--input-bg);
-            border: 1px solid var(--divider-color);
+            padding: 12px 14px;
+            background-color: #0d0d0d;
+            border: 1px solid #30363d;
             border-radius: 6px;
-            color: var(--text-light);
-            font-size: 14px;
-            box-sizing: border-box;
+            color: #f0f6fc;
+            font-size: 15px;
             transition: border-color 0.2s;
+        }
+        
+        input::placeholder {
+            color: #6e7681;
         }
         
         input:focus {
             outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(56, 139, 253, 0.3);
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(56, 139, 253, 0.15);
         }
         
-        input:invalid {
-            border-color: #f85149;
-        }
-        
-        input:invalid:focus {
-            box-shadow: 0 0 0 3px rgba(248, 81, 73, 0.3);
-        }
-        
-        button {
+        .continue-btn {
             width: 100%;
-            padding: 12px;
-            background-color: var(--accent-blue);
+            padding: 11px;
+            background: linear-gradient(to right, #2ea043, #1a7f37);
             color: white;
             border: none;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
+            margin-top: 6px;
         }
         
-        button:hover {
-            background-color: #388bfd;
+        .continue-btn:hover {
+            background: linear-gradient(to right, #238636, #196c2e);
+            transform: translateY(-1px);
         }
         
         .divider {
             position: relative;
             text-align: center;
-            margin: 24px 0;
-            color: #8b949e;
+            margin: 26px 0;
+            color: #6e7681;
+            font-size: 14px;
         }
         
         .divider::before {
@@ -121,7 +131,7 @@
             left: 0;
             right: 0;
             height: 1px;
-            background-color: var(--divider-color);
+            background: linear-gradient(to right, #30363d, #6e7681, #30363d);
             z-index: 1;
         }
         
@@ -129,7 +139,7 @@
             position: relative;
             display: inline-block;
             padding: 0 12px;
-            background-color: var(--card-bg);
+            background-color: #151515;
             z-index: 2;
         }
         
@@ -140,23 +150,25 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 12px;
-            background-color: transparent;
-            border: 1px solid var(--divider-color);
+            background-color: #202020;
+            border: 1px solid #444;
             border-radius: 6px;
-            color: var(--text-light);
+            color: #f0f6fc;
             font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.2s;
-            text-decoration: none; /* 移除下划线 */
+            transition: all 0.2s;
+            text-decoration: none;
         }
         
         .oauth-btn:hover {
-            background-color: rgba(240, 246, 252, 0.1);
-            border-color: #8b949e;
+            background-color: #2a2a2a;
+            border-color: #58a6ff;
+            transform: translateY(-1px);
         }
         
         .oauth-btn svg {
-            margin-right: 8px;
+            margin-right: 10px;
             width: 18px;
             height: 18px;
         }
@@ -164,30 +176,26 @@
         .footer-links {
             text-align: center;
             margin-top: 24px;
-            font-size: 12px;
+            font-size: 13px;
             color: #8b949e;
+            line-height: 1.6;
         }
         
         .footer-links a {
-            color: var(--accent-blue);
+            color: #58a6ff;
             text-decoration: none;
+            font-weight: 500;
         }
         
         .footer-links a:hover {
             text-decoration: underline;
-        }
-        
-        .trusted-by {
-            text-align: center;
-            margin-bottom: 24px;
-            font-size: 12px;
-            color: #8b949e;
+            text-decoration-thickness: 1.5px;
         }
         
         .error-message {
             color: #f85149;
-            font-size: 12px;
-            margin-top: 4px;
+            font-size: 13px;
+            margin-top: 6px;
             display: none;
         }
     </style>
@@ -195,15 +203,10 @@
 <body>
     <div class="login-card">
         <div class="logo">
-            <!-- 根据图片1的简约图标 -->
-            <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
-                <path d="M30 10L40 30L50 10L60 30L70 10" stroke="#58a6ff" stroke-width="4" fill="none"/>
-                <path d="M80 10V30H90V20H95V30H100V10H90V17.5H85V10H80Z" fill="#58a6ff"/>
-            </svg>
-        </div>
-        
-        <div class="trusted-by">
-            Trusted by developers at Google, Microsoft, OpenAI, and more
+            <div class="logo-text">WHA</div>
+            <div class="trusted-by">
+                Trusted by developers at Google, Microsoft, OpenAI, and more
+            </div>
         </div>
         
         <h1>Sign in</h1>
@@ -225,7 +228,7 @@
                 <div class="error-message" id="password-error">Password must be at least 8 characters and include both letters and numbers</div>
             </div>
             
-            <button type="submit">Continue</button>
+            <button type="submit" class="continue-btn">Continue</button>
         </form>
         
         <div class="divider">
@@ -234,21 +237,21 @@
         
         <a href="https://accounts.google.com/" target="_blank" class="oauth-btn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" fill="#4285F4"/>
+                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" fill="currentColor"/>
             </svg>
             Continue with Google
         </a>
         
         <a href="https://github.com/login" target="_blank" class="oauth-btn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" fill="#f0f6fc"/>
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" fill="currentColor"/>
             </svg>
             Continue with GitHub
         </a>
         
         <a href="https://appleid.apple.com/" target="_blank" class="oauth-btn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M17.05 12.05c0-3.07-2.47-5.55-5.5-5.55s-5.5 2.48-5.5 5.55c0 2.47 1.64 4.55 3.89 5.28v-3.86h-1.71v-2.84h1.71v-1.71c0-1.71 1.04-2.63 2.63-2.63.76 0 1.42.14 1.97.42v2.21h-1.32c-.94 0-1.11.45-1.11 1.11v1.58h2.42l-.35 2.84h-2.07v3.86c2.25-.73 3.89-2.81 3.89-5.28z" fill="#f0f6fc"/>
+                <path d="M17.05 12.05c0-3.07-2.47-5.55-5.5-5.55s-5.5 2.48-5.5 5.55c0 2.47 1.64 4.55 3.89 5.28v-3.86h-1.71v-2.84h1.71v-1.71c0-1.71 1.04-2.63 2.63-2.63.76 0 1.42.14 1.97.42v2.21h-1.32c-.94 0-1.11.45-1.11 1.11v1.58h2.42l-.35 2.84h-2.07v3.86c2.25-.73 3.89-2.81 3.89-5.28z" fill="currentColor"/>
             </svg>
             Continue with Apple
         </a>
