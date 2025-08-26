@@ -88,28 +88,6 @@
             box-shadow: 0 0 0 3px rgba(248, 81, 73, 0.3);
         }
         
-        .password-container {
-            position: relative;
-        }
-        
-        .show-password {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #8b949e;
-            cursor: pointer;
-            font-size: 12px;
-            padding: 0;
-        }
-        
-        .show-password:hover {
-            color: var(--accent-blue);
-            text-decoration: underline;
-        }
-        
         button {
             width: 100%;
             padding: 12px;
@@ -231,7 +209,7 @@
         <form id="login-form">
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" id="email" name="email" placeholder="your.email@company.com" 
+                <input type="email" id="email" name="email" placeholder="Your email address" 
                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
                        title="Please enter a valid email address" required autofocus>
                 <div class="error-message" id="email-error">Please enter a valid email address</div>
@@ -239,12 +217,9 @@
             
             <div class="form-group">
                 <label for="password">Password</label>
-                <div class="password-container">
-                    <input type="password" id="password" name="password" placeholder="••••••••" 
-                           minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$" 
-                           title="Password must be at least 8 characters and include both letters and numbers" required>
-                    <button type="button" class="show-password" id="show-password">Show</button>
-                </div>
+                <input type="password" id="password" name="password" placeholder="Password" 
+                       minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$" 
+                       title="Password must be at least 8 characters and include both letters and numbers" required>
                 <div class="error-message" id="password-error">Password must be at least 8 characters and include both letters and numbers</div>
             </div>
             
@@ -255,26 +230,26 @@
             <span>OR</span>
         </div>
         
-        <button class="oauth-btn">
+        <a href="https://accounts.google.com/" target="_blank" class="oauth-btn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" fill="#4285F4"/>
             </svg>
             Continue with Google
-        </button>
+        </a>
         
-        <button class="oauth-btn">
+        <a href="https://github.com/login" target="_blank" class="oauth-btn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" fill="#f0f6fc"/>
             </svg>
             Continue with GitHub
-        </button>
+        </a>
         
-        <button class="oauth-btn">
+        <a href="https://appleid.apple.com/" target="_blank" class="oauth-btn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M17.05 12.05c0-3.07-2.47-5.55-5.5-5.55s-5.5 2.48-5.5 5.55c0 2.47 1.64 4.55 3.89 5.28v-3.86h-1.71v-2.84h1.71v-1.71c0-1.71 1.04-2.63 2.63-2.63.76 0 1.42.14 1.97.42v2.21h-1.32c-.94 0-1.11.45-1.11 1.11v1.58h2.42l-.35 2.84h-2.07v3.86c2.25-.73 3.89-2.81 3.89-5.28z" fill="#f0f6fc"/>
             </svg>
             Continue with Apple
-        </button>
+        </a>
         
         <div class="footer-links">
             <p>Don't have an account? <a href="https://cursor.so/" target="_blank">Sign up</a></p>
@@ -322,29 +297,19 @@
             window.location.href = '/education.html';
         });
         
-        // 显示/隐藏密码功能
-        document.getElementById('show-password').addEventListener('click', () => {
-            const passwordInput = document.getElementById('password');
-            const showButton = document.getElementById('show-password');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                showButton.textContent = 'Hide';
-            } else {
-                passwordInput.type = 'password';
-                showButton.textContent = 'Show';
-            }
-        });
-        
         // 实时验证输入
-        document.getElementById('email').addEventListener('input', function() {
-            if (this.checkValidity()) {
+        document.getElementById('email').addEventListener('blur', function() {
+            if (!this.checkValidity() && this.value) {
+                document.getElementById('email-error').style.display = 'block';
+            } else {
                 document.getElementById('email-error').style.display = 'none';
             }
         });
         
-        document.getElementById('password').addEventListener('input', function() {
-            if (this.checkValidity()) {
+        document.getElementById('password').addEventListener('blur', function() {
+            if (!this.checkValidity() && this.value) {
+                document.getElementById('password-error').style.display = 'block';
+            } else {
                 document.getElementById('password-error').style.display = 'none';
             }
         });
