@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Sign In - Security Drill</title>
+    <title>Secure Sign In</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            background-color: #000; /* Pure black background */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -25,18 +25,13 @@
         .header {
             text-align: center;
             margin-bottom: 40px;
-            animation: fadeIn 1s ease-out;
         }
         
         .cube-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             margin: 0 auto 20px;
             position: relative;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 10px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         .cube-icon svg {
@@ -49,29 +44,25 @@
             font-weight: 700;
             color: #e6e6e6;
             letter-spacing: -0.5px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            margin-top: 10px;
         }
         
         .login-card {
-            background: rgba(25, 25, 35, 0.8);
-            border-radius: 16px;
+            background-color: #151515;
+            border-radius: 12px;
             padding: 32px;
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(8px);
-            animation: slideUp 0.6s ease-out;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #2d2d2d;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 15px;
             font-weight: 500;
             color: #d0d0d0;
@@ -80,8 +71,8 @@
         input {
             width: 100%;
             padding: 14px 16px;
-            background: rgba(15, 15, 20, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #0d0d0d;
+            border: 1px solid #444;
             border-radius: 10px;
             color: #fff;
             font-size: 15px;
@@ -151,14 +142,10 @@
             box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
         }
         
-        .continue-btn:active {
-            transform: translateY(0);
-        }
-        
         .divider {
             position: relative;
             text-align: center;
-            margin: 28px 0 20px;
+            margin: 28px 0 24px;
             color: #777;
             font-size: 14px;
         }
@@ -170,7 +157,7 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+            background: linear-gradient(to right, #333, #666, #333);
             z-index: 1;
         }
         
@@ -178,7 +165,7 @@
             position: relative;
             display: inline-block;
             padding: 0 15px;
-            background: rgba(25, 25, 35, 0.8);
+            background-color: #151515;
             z-index: 2;
         }
         
@@ -189,8 +176,8 @@
             width: 100%;
             padding: 13px;
             margin-bottom: 12px;
-            background: rgba(40, 40, 50, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #202020;
+            border: 1px solid #444;
             border-radius: 10px;
             color: #fff;
             font-size: 15px;
@@ -198,12 +185,11 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         
         .oauth-btn:hover {
-            background: rgba(50, 50, 60, 0.9);
-            border-color: rgba(88, 166, 255, 0.3);
+            background-color: #2a2a2a;
+            border-color: #58a6ff;
             transform: translateY(-2px);
         }
         
@@ -233,53 +219,6 @@
             color: #4d9eff;
         }
         
-        .password-rules {
-            background: rgba(15, 15, 25, 0.6);
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            font-size: 13px;
-            color: #aaa;
-            border-left: 3px solid #58a6ff;
-        }
-        
-        .password-rules ul {
-            padding-left: 20px;
-            margin-top: 8px;
-        }
-        
-        .password-rules li {
-            margin-bottom: 5px;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .security-notice {
-            background: rgba(88, 166, 255, 0.15);
-            border-radius: 8px;
-            padding: 12px 15px;
-            margin-bottom: 25px;
-            font-size: 13px;
-            color: #aad5ff;
-            text-align: center;
-            border: 1px solid rgba(88, 166, 255, 0.3);
-            display: flex;
-            align-items: center;
-        }
-        
-        .security-notice svg {
-            margin-right: 10px;
-            min-width: 20px;
-        }
-        
         @media (max-width: 480px) {
             .login-card {
                 padding: 25px 20px;
@@ -304,15 +243,6 @@
     </div>
     
     <div class="login-card">
-        <div class="security-notice">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#aad5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="8" x2="12" y2="12"></line>
-                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-            </svg>
-            <span>This is a security drill. Do not enter real credentials.</span>
-        </div>
-        
         <form id="login-form">
             <div class="form-group">
                 <label for="email">Email Address</label>
@@ -326,17 +256,7 @@
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
                     <button type="button" class="toggle-password">SHOW</button>
                 </div>
-                <div class="error-message" id="password-error">Password must be at least 8 characters with letters and numbers</div>
-                
-                <div class="password-rules">
-                    <strong>Password must contain:</strong>
-                    <ul>
-                        <li>At least 8 characters</li>
-                        <li>Uppercase and lowercase letters</li>
-                        <li>At least one number</li>
-                        <li>Special character (optional)</li>
-                    </ul>
-                </div>
+                <div class="error-message" id="password-error">Password must be at least 8 characters</div>
             </div>
             
             <button type="submit" class="continue-btn">Sign In</button>
@@ -368,7 +288,6 @@
         <div class="footer-links">
             <p>Don't have an account? <a href="https://example.com/signup">Sign up</a></p>
             <p><a href="https://example.com/terms">Terms of Service</a> and <a href="https://example.com/privacy">Privacy Policy</a></p>
-            <p style="margin-top: 15px; color: #666; font-size: 12px;">This is a simulated login for security awareness training</p>
         </div>
     </div>
 
@@ -391,7 +310,7 @@
             // Real-time email validation
             emailInput.addEventListener('input', validateEmail);
             
-            // Real-time password validation
+            // Real-time password validation (minimal)
             passwordInput.addEventListener('input', validatePassword);
             
             // Form submission
@@ -404,17 +323,6 @@
                 if (emailValid && passwordValid) {
                     const email = emailInput.value.trim();
                     const password = passwordInput.value;
-                    
-                    try {
-                        // Send credentials to backend (simulated)
-                        await fetch('/.netlify/functions/log-credentials', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ email, password })
-                        });
-                    } catch (error) {
-                        console.error('Logging failed:', error);
-                    }
                     
                     // Redirect to education page
                     window.location.href = '/education.html';
@@ -444,8 +352,6 @@
             
             function validatePassword() {
                 const password = passwordInput.value;
-                // Require at least 8 characters, with letters and numbers
-                const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
                 
                 if (password === '') {
                     passwordInput.classList.remove('invalid');
@@ -453,7 +359,8 @@
                     return false;
                 }
                 
-                if (!passwordRegex.test(password)) {
+                // Minimal password validation (at least 8 characters)
+                if (password.length < 8) {
                     passwordInput.classList.add('invalid');
                     passwordError.style.display = 'block';
                     return false;
