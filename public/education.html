@@ -17,8 +17,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
-            padding: 40px 20px;
+            padding: 20px;
             color: #fff;
         }
         
@@ -28,10 +29,12 @@
         }
         
         .cube-icon {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             margin: 0 auto 20px;
-            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .cube-icon svg {
@@ -44,6 +47,7 @@
             font-weight: 700;
             color: #e6e6e6;
             letter-spacing: -0.5px;
+            margin-top: 10px;
         }
         
         .login-card {
@@ -71,7 +75,7 @@
         input {
             width: 100%;
             padding: 14px 16px;
-            background-color: #0d0d0d;
+            background-color: #0d极d0d;
             border: 1px solid #444;
             border-radius: 10px;
             color: #fff;
@@ -111,7 +115,7 @@
             top: 50%;
             transform: translateY(-50%);
             background: none;
-            border: none;
+            border极: none;
             color: #888;
             cursor: pointer;
             font-size: 13px;
@@ -125,7 +129,7 @@
         .continue-btn {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(to right, #4facfe, #00f2fe);
+            background: #fff;
             color: #000;
             border: none;
             border-radius: 10px;
@@ -134,12 +138,10 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 5px;
-            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
         }
         
         .continue-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
+            background-color: #f0f0f0;
         }
         
         .divider {
@@ -190,7 +192,6 @@
         .oauth-btn:hover {
             background-color: #2a2a2a;
             border-color: #58a6ff;
-            transform: translateY(-2px);
         }
         
         .oauth-btn svg {
@@ -233,61 +234,53 @@
 <body>
     <div class="header">
         <div class="cube-icon">
+            <!-- 完整的立方体图标 -->
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 15L15 35L50 55L85 35L50 15Z" stroke="#e0e0e0" stroke-width="4" fill="none"/>
                 <path d="M15 35V65L50 85L85 65V35L50 55" stroke="#e0e0e0" stroke-width="4" fill="none"/>
                 <path d="M50 55V85" stroke="#e0e0e0" stroke-width="4" fill="none"/>
             </svg>
         </div>
-        <h1 class="signin-title">Secure Sign In</h1>
+        <h1 class="signin-title">Sign in</h1>
     </div>
     
     <div class="login-card">
         <form id="login-form">
             <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="your.email@company.com" required autofocus>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your email address" required autofocus>
                 <div class="error-message" id="email-error">Please enter a valid email address</div>
             </div>
             
-            <div class="form-group">
-                <label for="password">Password</label>
-                <div class="password-container">
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                    <button type="button" class="toggle-password">SHOW</button>
-                </div>
-                <div class="error-message" id="password-error">Password must be at least 8 characters</div>
-            </div>
-            
-            <button type="submit" class="continue-btn">Sign In</button>
+            <button type="submit" class="continue-btn">Continue</button>
         </form>
         
         <div class="divider">
-            <span>OR CONTINUE WITH</span>
+            <span>OR</span>
         </div>
         
-        <a href="https://accounts.google.com/" target="_blank" class="oauth-btn">
+        <a href="#" class="oauth-btn">
+            <!-- 正确的Google图标 -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <g transform="matrix(1,0,0,1,0,0)">
-                    <path fill="#4285F4" d="M23.49,12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29,1.48-1.14,2.73-2.4,3.58v3.01h3.86C22.21,19.09,23.49,15.99,23.49,12.27z"/>
-                    <path fill="#34A853" d="M12,24c3.31,0,6.09-1.08,8.13-2.91l-3.86-3.01c-1.08.72-2.45,1.16-4.27,1.16c-3.28,0-6.06-2.19-7.06-5.14H1.27v3.1C3.36,21.44,7.36,24,12,24z"/>
-                    <path fill="#FBBC05" d="M4.94,14.极c-.17-.51-.27-1.06-.27-1.63s.1-1.12.27-1.63V8.03H1.27C0.46,9.53,0,11.22,0,13s0.46,3.47,1.27,4.97L4.94,14.3z"/>
-                    <path fill="#EA4335" d="M12,4.75c1.77,0,3.35,0.6,4.6,1.8l3.42-3.42C18.09,1.19,15.31,0,12,0C7.36,0,3.36,2.56,1.27,6.03l3.67,2.86C5.94,6.94,8.72,4.75,12,4.75z"/>
-                </g>
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 极23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
             </svg>
             Continue with Google
         </a>
         
-        <a href="https://github.com/login" target="_blank" class="oauth-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path fill="#FFFFFF" d="M12,2A10,10,0,0,0,8.56,21.88c.5.09.68-.21.68-.48s0-.86,0-1.69c-2.78.61-3.37-1.34-3.37-1.34A2.65,2.65,0,0,0,4.7,16.68c-.91-.62.07-.6.07-.6a2.1,2.1,0,0,1,1.53,1.03,2.12,2.12,0,0,0,2.88.82,2.11,2.11,0,0,1,.62-1.33c-2.19-.25-4.5-1.1-4.5-4.89a3.84,3.84,0,0,极1.02-2.67,3.6,3.6,0,0,1,.10-2.64s.83-.27,2.72,1a9.47,9.47,0,0,1,5,0c1.89-1.3,2.72-1,2.72-1a3.6,3.6,0,0,1,.10,2.64,3.83,3.83,0,0,1,1.02,2.67c0,3.8-2.31,4.64-4.52,4.89a2.37,2.37,0,0,1,.67,1.83c0,1.33,0,2.4,0,2.72s.18.57.69.47A10,10,0,0,0,12,2Z"/>
+        <a href="#" class="oauth-btn">
+            <!-- 正确的GitHub图标 -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
             </svg>
             Continue with GitHub
         </a>
         
         <div class="footer-links">
-            <p>Don't have an account? <a href="https://example.com/signup">Sign up</a></p>
-            <p><a href="https://example.com/terms">Terms of Service</a> and <a href="https://example.com/privacy">Privacy Policy</a></p>
+            <p>Don't have an account? <a href="#">Sign up</a></p>
+            <p><a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
         </div>
     </div>
 
@@ -295,40 +288,18 @@
         document.addEventListener('DOMContentLoaded', function() {
             const loginForm = document.getElementById('login-form');
             const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
             const emailError = document.getElementById('email-error');
-            const passwordError = document.getElementById('password-error');
-            const togglePassword = document.querySelector('.toggle-password');
-            
-            // Toggle password visibility
-            togglePassword.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                this.textContent = type === 'password' ? 'SHOW' : 'HIDE';
-            });
             
             // Real-time email validation
             emailInput.addEventListener('input', validateEmail);
-            
-            // Real-time password validation
-            passwordInput.addEventListener('input', validatePassword);
             
             // Form submission
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const emailValid = validateEmail();
-                const passwordValid = validatePassword();
-                
-                if (emailValid && passwordValid) {
-                    // Simulate login processing
-                    showLoadingIndicator();
-                    
-                    // Simulate API call delay
-                    setTimeout(function() {
-                        // Redirect to education page
-                        window.location.href = 'education.html';
-                    }, 1500);
+                if (validateEmail()) {
+                    // Redirect to education page
+                    window.location.href = 'education.html';
                 }
             });
             
@@ -351,55 +322,6 @@
                     emailError.style.display = 'none';
                     return true;
                 }
-            }
-            
-            function validatePassword() {
-                const password = passwordInput.value;
-                
-                if (password === '') {
-                    passwordInput.classList.remove('invalid');
-                    passwordError.style.display = 'none';
-                    return false;
-                }
-                
-                // Minimal password validation
-                if (password.length < 8) {
-                    passwordInput.classList.add('invalid');
-                    passwordError.style.display = 'block';
-                    return false;
-                } else {
-                    passwordInput.classList.remove('invalid');
-                    passwordError.style.display = 'none';
-                    return true;
-                }
-            }
-            
-            function showLoadingIndicator() {
-                const submitBtn = document.querySelector('.continue-btn');
-                const originalText = submitBtn.textContent;
-                
-                submitBtn.innerHTML = '<div class="loader"></div>';
-                submitBtn.disabled = true;
-                
-                // Add CSS for loader
-                const style = document.createElement('style');
-                style.textContent = `
-                    .loader {
-                        border: 3px solid rgba(255, 255, 255, 0.3);
-                        border-top: 3px solid #fff;
-                        border-radius: 50%;
-                        width: 20px;
-                        height: 20px;
-                        animation: spin 1s linear infinite;
-                        margin: 0 auto;
-                    }
-                    
-                    @keyframes spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
-                    }
-                `;
-                document.head.appendChild(style);
             }
         });
     </script>
