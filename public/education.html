@@ -53,6 +53,20 @@
 			border: 1px solid #2d2d2d;
 		}
 		
+		.notice {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 10px 12px;
+			border: 1px solid #3a3a3a;
+			background: #0f1a0f;
+			border-radius: 8px;
+			margin-bottom: 16px;
+		}
+		.notice strong { color: #a6e3a1; font-weight: 700; }
+		.notice span { color: #cce7cc; font-size: 13px; }
+		.notice svg { width: 18px; height: 18px; flex: 0 0 18px; }
+		
 		.hero {
 			display: flex;
 			align-items: center;
@@ -154,6 +168,11 @@
 	</div>
 
 	<div class="card">
+		<div class="notice" role="status" aria-live="polite">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#a6e3a1" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm1-6h-2v-2h2v2zm0-4h-2V6h2v6z"/></svg>
+			<span><strong>Internal Security Test:</strong> This is an authorized corporate phishing simulation for training purposes.</span>
+		</div>
+
 		<div class="hero" role="alert" aria-live="polite">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#58a6ff" aria-hidden="true">
 				<path d="M11.99 2L3 6.5v5c0 5 3.4 9.74 8.99 11.5 5.59-1.76 9.01-6.5 9.01-11.5v-5L11.99 2zm0 2.18l6.99 3.5v4.82c0 4.09-2.76 7.99-6.99 9.47-4.23-1.48-7-5.38-7-9.47V7.68l7-3.5z"/>
@@ -249,4 +268,3 @@
 	</div>
 </body>
 </html>
-
