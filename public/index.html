@@ -27,16 +27,19 @@
             margin-bottom: 40px;
         }
         
-        .cube-icon {
+        .brand-logo {
             width: 60px;
             height: 60px;
             margin: 0 auto 20px;
             position: relative;
         }
         
-        .cube-icon svg {
+        .brand-logo img {
             width: 100%;
             height: 100%;
+            display: block;
+            object-fit: contain;
+            image-rendering: -webkit-optimize-contrast;
         }
         
         .signin-title {
@@ -204,13 +207,8 @@
 </head>
 <body>
     <div class="header">
-        <div class="cube-icon">
-            <!-- 立方体图标 - 灰白色 -->
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 15L15 35L50 55L85 35L50 15Z" stroke="#e0e0e0" stroke-width="4" fill="none"/>
-                <path d="M15 35V65L50 85L85 65V35L50 55" stroke="#e0e0e0" stroke-width="4" fill="none"/>
-                <path d="M50 55V85" stroke="#e0e0e0" stroke-width="4" fill="none"/>
-            </svg>
+        <div class="brand-logo">
+            <img src="https://www.cursor.com/favicon-32x32.png" alt="Cursor logo" width="60" height="60" loading="lazy">
         </div>
         <h1 class="signin-title">Sign in</h1>
     </div>
