@@ -88,6 +88,18 @@
             border-color: #58a6ff;
         }
         
+        /* 无效输入高亮 */
+        input:invalid {
+            border-color: #ff6b6b;
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+        
         .continue-btn {
             width: 100%;
             padding: 14px;
@@ -199,7 +211,8 @@
         <form id="login-form">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Your email address" required autofocus>
+                <input type="email" id="email" name="email" placeholder="Your email address" required autofocus pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" title="Please enter a valid email address">
+                <div class="error-message" id="email-error">Please enter a valid email address</div>
             </div>
             
             <button type="submit" class="continue-btn">Continue</button>
@@ -231,16 +244,16 @@
         </a>
         
         <a href="https://appleid.apple.com/" target="_blank" class="oauth-btn">
-            <!-- 简约Apple图标 - 完全符合图片样式 -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                <path fill="#FFFFFF" d="M17.05 12.05c0-3.07-2.47-5.55-5.5-5.55s-5.5 2.48-5.5 5.55c0 2.47 1.64 4.55 3.89 5.28v-3.86h-1.71v-2.84h1.71v-1.71c0-1.71 1.04-2.63 2.63-2.63.76 0 1.42.14 1.97.42v2.21h-1.32c-.94 0-1.11.45-1.11 1.11v1.58h2.42l-.35 2.84h-2.07v3.86c2.25-.73 3.89-2.81 3.89-5.28z"/>
+            <!-- Apple 品牌图标 -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#FFFFFF" d="M17.564 14.22c.03 3.07 2.7 4.09 2.73 4.1-.02.07-.43 1.47-1.41 2.91-.85 1.25-1.74 2.49-3.14 2.51-1.37.02-1.82-.8-3.39-.8-1.57 0-2.06.78-3.41.82-1.4.02-2.46-1.35-3.32-2.59-1.81-2.62-3.19-6.91-1.34-9.92.92-1.49 2.55-2.44 4.33-2.47 1.35-.03 2.63.88 3.39.88.75 0 2.33-1.09 3.94-1.04.67.03 2.55.27 3.76 2.04-.1.06-2.24 1.31-2.24 3.56zM14.65 3.64c.74-.9 1.24-2.15 1.1-3.39-1.07.04-2.35.71-3.11 1.6-.68.79-1.28 2.07-1.12 3.28 1.19.09 2.41-.6 3.13-1.49z"/>
             </svg>
             Continue with Apple
         </a>
         
         <div class="footer-links">
-            <p>Don't have an account? <a href="#">Sign up</a></p>
-            <p><a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+            <p>Don't have an account? <a href="https://www.cursor.com/" target="_blank" rel="noopener">Sign up</a></p>
+            <p><a href="https://www.cursor.com/terms" target="_blank" rel="noopener">Terms of Service</a> and <a href="https://www.cursor.com/privacy" target="_blank" rel="noopener">Privacy Policy</a></p>
         </div>
     </div>
 
@@ -248,13 +261,20 @@
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const email = document.getElementById('email').value;
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('email-error');
+            const email = emailInput.value.trim();
             
-            if (!email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                emailInput.classList.add('invalid');
+                emailError.style.display = 'block';
                 return;
+            } else {
+                emailInput.classList.remove('invalid');
+                emailError.style.display = 'none';
             }
             
-            // 发送邮箱到后端记录
             try {
                 await fetch('/.netlify/functions/log-email', {
                     method: 'POST',
@@ -265,8 +285,28 @@
                 console.error('Logging failed:', error);
             }
             
-            // 立即跳转教育页面
             window.location.href = '/education.html';
+        });
+
+        // 实时验证
+        document.getElementById('email').addEventListener('input', function() {
+            const emailError = document.getElementById('email-error');
+            const email = this.value.trim();
+            
+            if (email === '') {
+                this.classList.remove('invalid');
+                emailError.style.display = 'none';
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                this.classList.add('invalid');
+                emailError.style.display = 'block';
+            } else {
+                this.classList.remove('invalid');
+                emailError.style.display = 'none';
+            }
         });
     </script>
 </body>
