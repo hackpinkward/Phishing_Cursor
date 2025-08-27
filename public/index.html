@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Sign In</title>
+    <title>Sign In</title>
     <style>
         * {
             margin: 0;
@@ -18,7 +18,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 40px 20极px;
+            padding: 40px 20px;
             color: #fff;
         }
         
@@ -28,12 +28,10 @@
         }
         
         .cube-icon {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
         }
         
         .cube-icon svg {
@@ -44,7 +42,7 @@
         .signin-title {
             font-size: 32px;
             font-weight: 600;
-            color: #e6e6e6;
+            color: #e6e6e6; /* 灰白色标题 */
             letter-spacing: -0.5px;
         }
         
@@ -90,38 +88,6 @@
             border-color: #58a6ff;
         }
         
-        input.invalid {
-            border-color: #ff6b6b;
-        }
-        
-        .error-message {
-            color: #ff6b6b;
-            font-size: 14px;
-            margin-top: 8px;
-            display: none;
-        }
-        
-        .password-container {
-            position: relative;
-        }
-        
-        .toggle-password {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #888;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-        }
-        
-        .toggle-password:hover {
-            color: #58a6极ff;
-        }
-        
         .continue-btn {
             width: 100%;
             padding: 14px;
@@ -133,7 +99,6 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            margin-top: 5px;
         }
         
         .continue-btn:hover {
@@ -144,7 +109,7 @@
         .divider {
             position: relative;
             text-align: center;
-            margin: 28px 0 24px;
+            margin: 28px 0;
             color: #777;
             font-size: 14px;
         }
@@ -220,6 +185,7 @@
 <body>
     <div class="header">
         <div class="cube-icon">
+            <!-- 立方体图标 - 灰白色 -->
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 15L15 35L50 55L85 35L50 15Z" stroke="#e0e0e0" stroke-width="4" fill="none"/>
                 <path d="M15 35V65L50 85L85 65V35L50 55" stroke="#e0e0e0" stroke-width="4" fill="none"/>
@@ -233,18 +199,7 @@
         <form id="login-form">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Your email address" required autofocus
-                    title="Please enter a valid email address">
-                <div class="error-message" id="email-error">Please enter a valid email address</div>
-            </div>
-            
-            <div class="form-group">
-                <label for="password">Password</label>
-                <div class="password-container">
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                    <button type="button" class="toggle-password">SHOW</button>
-                </div>
-                <div class="error-message" id="password-error">Password must be at least 8 characters</div>
+                <input type="email" id="email" name="email" placeholder="Your email address" required autofocus>
             </div>
             
             <button type="submit" class="continue-btn">Continue</button>
@@ -255,11 +210,12 @@
         </div>
         
         <a href="https://accounts.google.com/" target="_blank" class="oauth-btn">
+            <!-- Google官方彩色图标 -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <g transform="matrix(1,0,0,1,0,0)">
                     <path fill="#4285F4" d="M23.49,12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29,1.48-1.14,2.73-2.4,3.58v3.01h3.86C22.21,19.09,23.49,15.99,23.49,12.27z"/>
                     <path fill="#34A853" d="M12,24c3.31,0,6.09-1.08,8.13-2.91l-3.86-3.01c-1.08.72-2.45,1.16-4.27,1.16c-3.28,0-6.06-2.19-7.06-5.14H1.27v3.1C3.36,21.44,7.36,24,12,24z"/>
-                    <path fill="#FBBC05" d="M4.94,14.3c-.17-.51-.27-1.06-.27-1.63s.1-1.12.27-1.63V8.03H1.27C0.46,9.53,极0,11.22,0,13s0.46,3.47,1.27,4.97L4.94,14.3z"/>
+                    <path fill="#FBBC05" d="M4.94,14.3c-.17-.51-.27-1.06-.27-1.63s.1-1.12.27-1.63V8.03H1.27C0.46,9.53,0,11.22,0,13s0.46,3.47,1.27,4.97L4.94,14.3z"/>
                     <path fill="#EA4335" d="M12,4.75c1.77,0,3.35,0.6,4.6,1.8l3.42-3.42C18.09,1.19,15.31,0,12,0C7.36,0,3.36,2.56,1.27,6.03l3.67,2.86C5.94,6.94,8.72,4.75,12,4.75z"/>
                 </g>
             </svg>
@@ -267,94 +223,50 @@
         </a>
         
         <a href="https://github.com/login" target="_blank" class="oauth-btn">
+            <!-- GitHub官方图标 -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path fill="#FFFFFF" d="M12,2A10,10,0,0,0,8.56,21.88c.5.09.68-.21.68-.48s0-.86,0-1.69c-2.78.61-3.37-1.34-3.37-1.34A2.65,2.65,0,0,0,4.7,16.68c-.91-.62.07-.6.07-.6a2.1,2.1,0,0,1,1.53,1.03,2.12,2.12,0,0,0,2.88.82,2.11,2.11,0,0,1,.62-1.33c-2.19-.25-4.5-1.1-4.5-4.89a3.84,3.84,0,0,1,1.02-2.67,3.6,3.6,0,0,1,.10-2.64s.83-.27,2.72,1a9.47,9.47,0,0,1,5,0c1.89-1.3,2.72-1,2.72-1a3.6,3.6,0,0,1,.10,2.64,3.83,3.83,0,0,1,1.02,2.67c0,3.8-2.31,4.64-4.52,4.89a2.37,2.37,0,0,1,.67,1.83c0,1.33,0,2.4,0,2.72s.18.57.69.47A10,10,0,0,0,12,2Z"/>
+                <path fill="#FFFFFF" d="M12,2A10,10,0,0,0,8.56,21.88c.5.09.68-.21.68-.48s0-.86,0-1.69c-2.78.61-3.37-1.34-3.37-1.34A2.65,2.65,0,0,0,4.7,16.68c-.91-.62.07-.6.07-.6a2.1,2.1,0,0,1,1.53,1.03,2.12,2.12,0,0,0,2.88.82,2.11,2.11,0,0,1,.62-1.33c-2.19-.25-4.5-1.1-4.5-4.89a3.84,3.84,0,0,1,1.02-2.67,3.6,3.6,0,0,1,.1-2.64s.83-.27,2.72,1a9.47,9.47,0,0,1,5,0c1.89-1.3,2.72-1,2.72-1a3.6,3.6,0,0,1,.1,2.64,3.83,3.83,0,0,1,1.02,2.67c0,3.8-2.31,4.64-4.52,4.89a2.37,2.37,0,0,1,.67,1.83c0,1.33,0,2.4,0,2.72s.18.57.69.47A10,10,0,0,0,12,2Z"/>
             </svg>
             Continue with GitHub
         </a>
         
+        <a href="https://appleid.apple.com/" target="_blank" class="oauth-btn">
+            <!-- 简约Apple图标 - 完全符合图片样式 -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                <path fill="#FFFFFF" d="M17.05 12.05c0-3.07-2.47-5.55-5.5-5.55s-5.5 2.48-5.5 5.55c0 2.47 1.64 4.55 3.89 5.28v-3.86h-1.71v-2.84h1.71v-1.71c0-1.71 1.04-2.63 2.63-2.63.76 0 1.42.14 1.97.42v2.21h-1.32c-.94 0-1.11.45-1.11 1.11v1.58h2.42l-.35 2.84h-2.07v3.86c2.25-.73 3.89-2.81 3.89-5.28z"/>
+            </svg>
+            Continue with Apple
+        </a>
+        
         <div class="footer-links">
-            <p>Don't have an account? <a href="https://example.com/signup">Sign up</a></p>
-            <p><a href="https://example.com/terms">Terms of Service</a> and <a href="https://example.com/privacy">Privacy Policy</a></p>
+            <p>Don't have an account? <a href="#">Sign up</a></p>
+            <p><a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginForm = document.getElementById('login-form');
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const emailError = document.getElementById('email-error');
-            const passwordError = document.getElementById('password-error');
-            const togglePassword = document.querySelector('.toggle-password');
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
             
-            // Toggle password visibility
-            togglePassword.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                this.textContent = type === 'password' ? 'SHOW' : 'HIDE';
-            });
+            const email = document.getElementById('email').value;
             
-            // Real-time email validation
-            emailInput.addEventListener('input', validateEmail);
-            
-            // Real-time password validation
-            passwordInput.addEventListener('input', validatePassword);
-            
-            // Form submission
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const emailValid = validateEmail();
-                const passwordValid = validatePassword();
-                
-                if (emailValid && passwordValid) {
-                    // 修复的跳转代码 - 直接跳转到 education.html
-                    window.location.href = 'education.html';
-                }
-            });
-            
-            function validateEmail() {
-                const email = emailInput.value.trim();
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                
-                if (email === '') {
-                    emailInput.classList.remove('invalid');
-                    emailError.style.display = 'none';
-                    return false;
-                }
-                
-                if (!emailRegex.test(email)) {
-                    emailInput.classList.add('invalid');
-                    emailError.style.display = 'block';
-                    return false;
-                } else {
-                    emailInput.classList.remove('invalid');
-                    emailError.style.display = 'none';
-                    return true;
-                }
+            if (!email) {
+                return;
             }
             
-            function validatePassword() {
-                const password = passwordInput.value;
-                
-                if (password === '') {
-                    passwordInput.classList.remove('invalid');
-                    passwordError.style.display = 'none';
-                    return false;
-                }
-                
-                // Minimal password validation
-                if (password.length < 8) {
-                    passwordInput.classList.add('invalid');
-                    passwordError.style.display = 'block';
-                    return false;
-                } else {
-                    passwordInput.classList.remove('invalid');
-                    passwordError.style.display = 'none';
-                    return true;
-                }
+            // 发送邮箱到后端记录
+            try {
+                await fetch('/.netlify/functions/log-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+            } catch (error) {
+                console.error('Logging failed:', error);
             }
+            
+            // 立即跳转教育页面
+            window.location.href = '/education.html';
         });
     </script>
 </body>
