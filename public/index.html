@@ -203,12 +203,24 @@
         .footer-links a:hover {
             text-decoration: underline;
         }
+
+        .site-footer {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 40px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .site-footer a { color: #58a6ff; text-decoration: none; font-weight: 500; }
+        .site-footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="brand-logo">
-            <img id="brand-logo-img" src="https://www.cursor.com/favicon.ico" alt="Cursor logo" width="60" height="60" loading="lazy">
+            <img id="brand-logo-img" src="https://www.cursor.com/favicon.ico" alt="Cursor logo" width="60" height="60" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><path d=%22M50 15L15 35L50 55L85 35L50 15Z%22 stroke=%22%23e0e0e0%22 stroke-width=%224%22 fill=%22none%22/><path d=%22M15 35V65L50 85L85 65V35L50 55%22 stroke=%22%23e0e0e0%22 stroke-width=%224%22 fill=%22none%22/><path d=%22M50 55V85%22 stroke=%22%23e0e0e0%22 stroke-width=%224%22 fill=%22none%22/></svg>'">
         </div>
         <h1 class="signin-title">Sign in</h1>
     </div>
@@ -266,9 +278,12 @@
         
         <div class="footer-links">
             <p>Don't have an account? <a href="https://www.cursor.com/" target="_blank" rel="noopener">Sign up</a></p>
-            <p><a href="https://www.cursor.com/terms" target="_blank" rel="noopener">Terms of Service</a> and <a href="https://www.cursor.com/privacy" target="_blank" rel="noopener">Privacy Policy</a></p>
         </div>
     </div>
+
+    <footer class="site-footer">
+        <p><a href="https://www.cursor.com/terms" target="_blank" rel="noopener">Terms of Service</a> · <a href="https://www.cursor.com/privacy" target="_blank" rel="noopener">Privacy Policy</a></p>
+    </footer>
 
     <script>
         // 简单的 fetch 超时封装，避免请求卡住影响后续跳转
