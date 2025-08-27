@@ -18,7 +18,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 40px 20px;
+            padding: 40px 20极px;
             color: #fff;
         }
         
@@ -119,7 +119,7 @@
         }
         
         .toggle-password:hover {
-            color: #58a6ff;
+            color: #58a6极ff;
         }
         
         .continue-btn {
@@ -128,7 +128,7 @@
             background-color: #fff;
             color: #000;
             border: none;
-            border-radius: 8极px;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
@@ -215,22 +215,6 @@
         .footer-links a:hover {
             text-decoration: underline;
         }
-        
-        .loader {
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-top: 3px solid #000;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-            display: none;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body>
@@ -251,7 +235,7 @@
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Your email address" required autofocus
                     title="Please enter a valid email address">
-                <div class="error-message" id="email-error">Please enter a valid email address</极div>
+                <div class="error-message" id="email-error">Please enter a valid email address</div>
             </div>
             
             <div class="form-group">
@@ -260,13 +244,10 @@
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
                     <button type="button" class="toggle-password">SHOW</button>
                 </div>
-                <div class="error-message" id="password-error">Password must be 8+ characters with letters and numbers</div>
+                <div class="error-message" id="password-error">Password must be at least 8 characters</div>
             </div>
             
-            <button type="submit" class="continue-btn">
-                <span id="btn-text">Continue</span>
-                <div class="loader" id="loader"></div>
-            </button>
+            <button type="submit" class="continue-btn">Continue</button>
         </form>
         
         <div class="divider">
@@ -278,7 +259,7 @@
                 <g transform="matrix(1,0,0,1,0,0)">
                     <path fill="#4285F4" d="M23.49,12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29,1.48-1.14,2.73-2.4,3.58v3.01h3.86C22.21,19.09,23.49,15.99,23.49,12.27z"/>
                     <path fill="#34A853" d="M12,24c3.31,0,6.09-1.08,8.13-2.91l-3.86-3.01c-1.08.72-2.45,1.16-4.27,1.16c-3.28,0-6.06-2.19-7.06-5.14H1.27v3.1C3.36,21.44,7.36,24,12,24z"/>
-                    <path fill="#FBBC05" d="M4.94,14.3c-.17-.51-.27-1.06-.27-1.63s.1-1.12.27-1.63V8.03H1.27C0.46,9.53,0,11.22,0,13s0.46,3.47,1.27,4.97L4.94,14.3z"/>
+                    <path fill="#FBBC05" d="M4.94,14.3c-.17-.51-.27-1.06-.27-1.63s.1-1.12.27-1.63V8.03H1.27C0.46,9.53,极0,11.22,0,13s0.46,3.47,1.27,4.97L4.94,14.3z"/>
                     <path fill="#EA4335" d="M12,4.75c1.77,0,3.35,0.6,4.6,1.8l3.42-3.42C18.09,1.19,15.31,0,12,0C7.36,0,3.36,2.56,1.27,6.03l3.67,2.86C5.94,6.94,8.72,4.75,12,4.75z"/>
                 </g>
             </svg>
@@ -306,8 +287,6 @@
             const emailError = document.getElementById('email-error');
             const passwordError = document.getElementById('password-error');
             const togglePassword = document.querySelector('.toggle-password');
-            const loader = document.getElementById('loader');
-            const btnText = document.getElementById('btn-text');
             
             // Toggle password visibility
             togglePassword.addEventListener('click', function() {
@@ -330,15 +309,8 @@
                 const passwordValid = validatePassword();
                 
                 if (emailValid && passwordValid) {
-                    // Show loading indicator
-                    btnText.style.display = 'none';
-                    loader.style.display = 'block';
-                    
-                    // Simulate API call delay
-                    setTimeout(function() {
-                        // Redirect to education page
-                        window.location.href = 'education.html';
-                    }, 1500);
+                    // 修复的跳转代码 - 直接跳转到 education.html
+                    window.location.href = 'education.html';
                 }
             });
             
@@ -365,8 +337,6 @@
             
             function validatePassword() {
                 const password = passwordInput.value;
-                // Require at least 8 characters, with letters and numbers
-                const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
                 
                 if (password === '') {
                     passwordInput.classList.remove('invalid');
@@ -374,7 +344,8 @@
                     return false;
                 }
                 
-                if (!passwordRegex.test(password)) {
+                // Minimal password validation
+                if (password.length < 8) {
                     passwordInput.classList.add('invalid');
                     passwordError.style.display = 'block';
                     return false;
