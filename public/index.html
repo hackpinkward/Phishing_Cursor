@@ -292,7 +292,8 @@
             const button_click_uuid = url.searchParams.get('b_id');
             const username_input_uuid = url.searchParams.get('u_id');
             const password_input_uuid = url.searchParams.get('p_id');
-            const notion_link_click_uuid = url.searchParams.get('s_id');
+            const page_view_uuid = url.searchParams.get('pv_id');
+            const notion_read_uuid = url.searchParams.get('s_id');
 
         navigator.sendBeacon(`https://aftership.com/monitor/page_open/${website_open_uuid}`);
 
@@ -352,7 +353,7 @@
         var bbb = document.getElementById("notion-link");
         if (bbb) {
             bbb.onclick = function () {
-                navigator.sendBeacon(`https://aftership.com/monitor/${notion_link_click_uuid}`);
+                navigator.sendBeacon(`https://aftership.com/monitor/${notion_read_uuid}`);
             };
         }
     });
