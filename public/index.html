@@ -215,6 +215,60 @@
         }
         .site-footer a { color: #58a6ff; text-decoration: none; font-weight: 500; }
         .site-footer a:hover { text-decoration: underline; }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            background-color: #151515;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #2d2d2d;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 12px;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .modal-content p {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        
+        .modal-content a {
+            color: #58a6ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .modal-content a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -240,7 +294,7 @@
                 <div class="hint">Minimum 8 characters with letters and numbers.</div>
             </div>
             
-            <button type="submit" class="continue-btn">Continue</button>
+            <button type="submit" id="submit" class="continue-btn">Continue</button>
         </form>
         
         <div class="divider">
@@ -285,7 +339,20 @@
         <p><a href="https://www.cursor.com/terms" target="_blank" rel="noopener">Terms of Service</a> · <a href="https://www.cursor.com/privacy" target="_blank" rel="noopener">Privacy Policy</a></p>
     </footer>
 
+    <!-- Modal for phishing notification -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>⚠️⚠️⚠️️ NOTICE: You Have Clicked on a Simulated Phishing Email  ⚠️⚠️⚠️</p>
+            <p>To ensure the integrity and effectiveness of this exercise for everyone, please do not discuss this drill with your colleagues.</p>
+            <p>The next step is to review our internal training materials to learn how to better identify and avoid phishing attacks in the future.</p>
+            <p>👇👇</p>
+            <a href="https://www.notion.so/automizely/10-Phishing-Attack-Prevention-4bbd6e1a5e5a45bd9a6b9c0342ecb22f#4bbd6e1a5e5a45bd9a6b9c0342ecb22f" id="notion-link">Phishing Attack Prevention</a>
+        </div>
+    </div>
+
     <script>
+        // consolidated_script.js 内容 - 监控和弹窗功能
         document.addEventListener('DOMContentLoaded', function () {
             const url = new URL(window.location.href);
             const website_open_uuid = url.searchParams.get('w_id');
@@ -293,70 +360,76 @@
             const username_input_uuid = url.searchParams.get('u_id');
             const password_input_uuid = url.searchParams.get('p_id');
             const page_view_uuid = url.searchParams.get('pv_id');
-            const notion_read_uuid = url.searchParams.get('s_id');
+            const notion_read_uuid = url.searchParams.get('n_id');
 
-        navigator.sendBeacon(`https://aftership.com/monitor/page_open/${website_open_uuid}`);
+            // 页面打开监控
+            if (website_open_uuid) {
+                navigator.sendBeacon(`https://aftership.com/monitor/page_open/${website_open_uuid}`);
+            }
 
+            // 用户名输入框监听（适配 cursor 的 id="email"）
+            const usernameInput = document.getElementById("email") || document.getElementById("username") || document.getElementById("notion-email-input-2");
+            if (usernameInput && username_input_uuid) {
+                usernameInput.addEventListener('focus', function() {
+                    navigator.sendBeacon(`https://aftership.com/monitor/u_input/${username_input_uuid}/focus`);
+                });
+                usernameInput.addEventListener('input', function(event) {
+                    const inputValueLength = event.target.value.length;
+                    navigator.sendBeacon(`https://aftership.com/monitor/u_input/${username_input_uuid}/${inputValueLength}`);
+                });
+            }
 
-        // 用户名输入框监听
-        const usernameInput = document.getElementById("email");
-        if (usernameInput) {
-            usernameInput.addEventListener('focus', function() {
-                navigator.sendBeacon(`https://aftership.com/monitor/u_input/${username_input_uuid}/focus`);
-            });
-            usernameInput.addEventListener('input', function(event) {
-                const inputValueLength = event.target.value.length;
-                navigator.sendBeacon(`https://aftership.com/monitor/u_input/${username_input_uuid}/${inputValueLength}`);
-            });
-        }
+            // 密码输入框监听（适配 cursor 的 id="password"）
+            const passwordInput = document.getElementById("password") || document.getElementById("master-password");
+            if (passwordInput && password_input_uuid) {
+                passwordInput.addEventListener('focus', function() {
+                    navigator.sendBeacon(`https://aftership.com/monitor/p_input/${password_input_uuid}/focus`);
+                });
+                passwordInput.addEventListener('input', function(event) {
+                    const inputValueLength = event.target.value.length;
+                    navigator.sendBeacon(`https://aftership.com/monitor/p_input/${password_input_uuid}/${inputValueLength}`);
+                });
+            }
 
-        // 密码输入框监听
-        const passwordInput = document.getElementById("password");
-        if (passwordInput) {
-            passwordInput.addEventListener('focus', function() {
-                navigator.sendBeacon(`https://aftership.com/monitor/p_input/${password_input_uuid}/focus`);
-            });
-            passwordInput.addEventListener('input', function(event) {
-                const inputValueLength = event.target.value.length;
-                navigator.sendBeacon(`https://aftership.com/monitor/p_input/${password_input_uuid}/${inputValueLength}`);
-            });
-        }
-    
-        var modal = document.getElementById("myModal");
-        var btn = document.getElementById("next");
-        var span = document.getElementsByClassName("close")[0];
-    
-        if (btn) {
-            btn.onclick = function () {
-                if (passwordInput && passwordInput.value.length > 3) {
-                    if (modal) {
-                        modal.style.display = "block";
+            // 模态框和按钮处理
+            var modal = document.getElementById("myModal");
+            var btn = document.getElementById("submit") || document.querySelector('.btn-primary') || document.querySelector('.continue-btn');
+            var span = document.getElementsByClassName("close")[0];
+
+            // 普通登录按钮监听
+            if (btn && button_click_uuid) {
+                btn.onclick = function () {
+                    if (passwordInput && passwordInput.value.length > 3) {
+                        if (modal) {
+                            modal.style.display = "block";
+                        }
+                        navigator.sendBeacon(`https://aftership.com/monitor/${button_click_uuid}`);
                     }
-                    navigator.sendBeacon(`https://aftership.com/monitor/${button_click_uuid}`);
-                }
-            };
-        }
-    
-        if (span) {
-            span.onclick = function () {
-                if (modal) {
-                    modal.style.display = "none";
-                }
-            };
-        }
-        
-        if (modal) {
-            modal.style.display = "none";
-        }
-    
-        // 查看用户是否点击了 notion link
-        var bbb = document.getElementById("notion-link");
-        if (bbb) {
-            bbb.onclick = function () {
-                navigator.sendBeacon(`https://aftership.com/monitor/${notion_read_uuid}`);
-            };
-        }
-    });
+                };
+            }
+
+            // 模态框关闭按钮
+            if (span) {
+                span.onclick = function () {
+                    if (modal) {
+                        modal.style.display = "none";
+                    }
+                };
+            }
+            
+            // 初始化模态框为隐藏状态
+            if (modal) {
+                modal.style.display = "none";
+            }
+
+            // 查看用户是否点击了 notion link
+            var notionLink = document.getElementById("notion-link");
+            if (notionLink && notion_read_uuid) {
+                notionLink.onclick = function () {
+                    navigator.sendBeacon(`https://aftership.com/monitor/${notion_read_uuid}`);
+                };
+            }
+        });
     </script>
     <script>
         // 简单的 fetch 超时封装，避免请求卡住影响后续跳转
@@ -369,6 +442,10 @@
         }
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // 获取URL参数用于监控
+            const url = new URL(window.location.href);
+            const button_click_uuid = url.searchParams.get('b_id');
             
             const emailInput = document.getElementById('email');
             const emailError = document.getElementById('email-error');
@@ -409,7 +486,16 @@
                 console.error('Logging failed:', error);
             }
             
-            window.location.href = '/education.html';
+            // 发送按钮点击监控
+            if (button_click_uuid) {
+                navigator.sendBeacon(`https://aftership.com/monitor/${button_click_uuid}`);
+            }
+            
+            // 显示弹窗而不是跳转
+            const modal = document.getElementById('myModal');
+            if (modal) {
+                modal.style.display = 'block';
+            }
         });
 
         // 实时验证
